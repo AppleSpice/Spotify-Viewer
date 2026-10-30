@@ -230,7 +230,7 @@
       .empty-state p { max-width: 290px; margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
       .message { display: none; max-width: 460px; margin: 14px auto 0; color: #ffb6a6; font-size: 12px; line-height: 1.55; text-align: center; }
 
-      .stats-panel { height: 100%; min-height: 0; overflow: hidden; padding: 20px 20px 14px; }
+      .stats-panel { display: flex; height: 100%; min-height: 0; flex-direction: column; overflow: hidden; padding: 20px 20px 14px; }
       .dashboard-sidebar { min-height: 0; }
       .stats-panel .panel-heading { margin-bottom: 11px; }
       .stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
@@ -272,13 +272,13 @@
       .credit-label { display: block; margin-bottom: 4px; color: #a8b09f; font-size: 12px; font-weight: 600; }
       .credit-value { display: -webkit-box; overflow: hidden; color: #f0f2e9; font-size: clamp(14px, 1vw, 17px); font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
       .genius-card { background: linear-gradient(135deg, color-mix(in srgb, var(--album-color-2, #212) 28%, rgba(15,18,24,.9)), rgba(14,17,23,.9)); }
-      .track-details .genius-card { display: flex; min-height: 0; flex: 1; flex-direction: column; justify-content: center; overflow: hidden; margin-top: clamp(14px, 2.5vh, 26px); padding: clamp(14px, 1.6vw, 21px); border-color: color-mix(in srgb, var(--album-accent, #c5f36a) 25%, var(--line)); background: radial-gradient(ellipse at 92% 10%, color-mix(in srgb, var(--album-accent, #c5f36a) 17%, transparent), transparent 46%), linear-gradient(145deg, color-mix(in srgb, var(--album-color-1, #283020) 52%, rgba(15,18,24,.96)), color-mix(in srgb, var(--album-color-2, #151914) 42%, rgba(14,17,23,.96))); }
-      .track-details .genius-card .stat-label { font-size: 13px; }
-      .track-details .genius-card .stat-label span:last-child { padding: 5px 9px; border: 1px solid color-mix(in srgb, var(--album-accent, #c5f36a) 25%, transparent); border-radius: 999px; color: var(--album-accent, var(--accent)); background: color-mix(in srgb, var(--album-accent, #c5f36a) 9%, transparent); font: 10px var(--mono); letter-spacing: .25px; }
+      .stats-panel > .genius-card { display: flex; min-height: 0; flex: 1 1 0; flex-direction: column; overflow: hidden; margin-top: 10px; padding: clamp(12px, 1.2vw, 18px); border-color: color-mix(in srgb, var(--album-accent, #c5f36a) 25%, var(--line)); background: radial-gradient(ellipse at 92% 10%, color-mix(in srgb, var(--album-accent, #c5f36a) 17%, transparent), transparent 46%), linear-gradient(145deg, color-mix(in srgb, var(--album-color-1, #283020) 52%, rgba(15,18,24,.96)), color-mix(in srgb, var(--album-color-2, #151914) 42%, rgba(14,17,23,.96))); }
+      .stats-panel > .genius-card .stat-label { font-size: 13px; }
+      .stats-panel > .genius-card .stat-label span:last-child { padding: 5px 9px; border: 1px solid color-mix(in srgb, var(--album-accent, #c5f36a) 25%, transparent); border-radius: 999px; color: var(--album-accent, var(--accent)); background: color-mix(in srgb, var(--album-accent, #c5f36a) 9%, transparent); font: 10px var(--mono); letter-spacing: .25px; }
       .genius-result-title { display: block; margin-top: 15px; color: #fff; font: 800 clamp(26px, 3vw, 42px) var(--display); letter-spacing: -1.3px; line-height: 1.12; text-decoration: none; }
       .genius-result-title:hover { color: var(--album-accent, var(--accent)); }
       .genius-result-meta { margin: 10px 0 0; color: #c4cbbd; font-size: clamp(15px, 1.25vw, 18px); line-height: 1.6; }
-      .genius-result-description { display: -webkit-box; overflow: hidden; margin: 8px 0 0; color: #e0e4da; font-size: clamp(15px, 1.2vw, 19px); line-height: 1.5; -webkit-box-orient: vertical; -webkit-line-clamp: 4; }
+      .genius-result-description { min-height: 0; flex: 1 1 auto; overflow-y: auto; margin: 8px 0 0; color: #e0e4da; font-size: clamp(14px, 1vw, 17px); line-height: 1.5; scrollbar-width: thin; }
       .genius-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin-top: 10px; }
       .genius-detail { min-width: 0; padding: 11px 13px; border: 1px solid color-mix(in srgb, var(--album-accent, #c5f36a) 18%, var(--line)); border-radius: 9px; background: color-mix(in srgb, var(--album-accent, #c5f36a) 6%, rgba(7,10,12,.5)); }
       .genius-detail.wide { grid-column: 1 / -1; }
@@ -395,10 +395,18 @@
         .app.is-connected { height: 100vh; height: 100dvh; min-height: 0; overflow: hidden; }
         .track-content:not([hidden]) { display: flex; min-height: 0; flex: 1; flex-direction: column; justify-content: flex-start; }
         .track-layout { min-height: 0; flex: 1 1 0; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
-        .cover-column { min-height: 0; align-items: center; justify-content: center; gap: 12px; }
-        .cover-wrap { width: min(100%, 36dvh); }
+        .cover-column { min-height: 0; align-items: center; justify-content: flex-start; gap: 12px; }
+        .cover-wrap { width: min(100%, 36dvh); flex: 0 0 auto; }
         .artist-spotlight { flex: 0 0 auto; }
         .track-details { display: flex; min-height: 0; flex-direction: column; align-self: stretch; }
+        .player-panel .catalog-card { flex: 0 0 auto; margin-top: 10px; padding: 12px 14px; }
+        .player-panel .catalog-card .credit-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 16px; margin-top: 8px; }
+        .player-panel .catalog-card .credit-label { font-size: 12px; }
+        .player-panel .catalog-card .credit-value { font-size: clamp(14px, 1vw, 17px); }
+        .stats-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .stats-grid { flex: 0 0 auto; }
+        .stats-panel > .genius-card .genius-detail-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .stats-panel > .genius-card .genius-detail.wide { grid-column: auto; }
         .progress-area { flex: 0 0 auto; }
       }
       @media (min-width: 960px) and (max-height: 850px) {
@@ -418,15 +426,13 @@
         .popularity-card .stat-value { margin-top: 5px; }
         .popularity-meter { height: 5px; margin-top: 6px; }
         .history-card { min-height: 68px; }
-        .catalog-card { grid-column: 1 / -1; }
         .credit-grid { gap: 8px 12px; margin-top: 9px; }
-        .credit-label { margin-bottom: 3px; font-size: 11px; }
+        .player-panel .catalog-card .credit-label { margin-bottom: 3px; font-size: 12px; }
         .credit-value { font-size: 14px; }
         .personal-note { display: none; }
         .tag-card { padding-top: 7px; padding-bottom: 7px; }
         .tag-group-title { margin-bottom: 4px; }
         .genre-tag { padding: 3px 7px; }
-        .track-details .genius-card { margin-top: 16px; padding: 16px; }
         .genius-result-title { margin-top: 9px; font-size: clamp(23px, 2.4vw, 32px); }
         .genius-result-meta { margin-top: 6px; font-size: 14px; }
         .genius-result-description { margin-top: 9px; font-size: 15px; line-height: 1.45; }
@@ -438,22 +444,22 @@
         .progress-area { margin-top: 8px; }
       }
       @media (min-width: 960px) and (max-height: 800px) {
-        .track-details .genius-card { margin-top: 10px; padding: 12px; }
-        .genius-result-title { margin-top: 8px; font-size: clamp(22px, 2.4vw, 30px); }
-        .genius-result-meta { margin-top: 5px; font-size: 13px; line-height: 1.4; }
-        .genius-result-description { display: -webkit-box; overflow: hidden; margin-top: 8px; font-size: 14px; line-height: 1.4; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-        .genius-detail-grid { gap: 6px; margin-top: 8px; }
-        .genius-detail { padding: 7px 9px; }
-        .genius-detail-label { margin-bottom: 3px; font-size: 9px; }
-        .genius-detail-value { font-size: 12px; line-height: 1.3; }
+        .genius-result-title { margin-top: 5px; font-size: clamp(19px, 2vw, 27px); }
+        .genius-result-meta { margin-top: 3px; font-size: 12px; line-height: 1.3; }
+        .stats-panel > .genius-card { margin-top: 6px; padding: 8px; }
+        .genius-result-description { margin-top: 5px; font-size: 13px; line-height: 1.35; }
+        .genius-detail-grid { gap: 4px; margin-top: 5px; }
+        .genius-detail { padding: 5px 6px; }
+        .genius-detail-label { margin-bottom: 2px; font-size: 8px; }
+        .genius-detail-value { font-size: 11px; line-height: 1.2; }
       }
-      @media (min-width: 960px) and (max-height: 760px) {
+      @media (min-width: 960px) and (max-height: 800px) {
         .stats-panel { padding: 8px; }
         .stats-panel .panel-heading { margin-bottom: 5px; }
         .stats-grid { gap: 4px; }
         .stat-card { min-height: 48px; padding: 6px; }
-        .stat-label { font-size: 9px; }
-        .stat-value { margin-top: 4px; font-size: 17px; }
+        .stat-label { font-size: 10px; }
+        .stat-value { margin-top: 4px; font-size: 19px; }
         .stat-caption { margin-top: 3px; font-size: 8px; }
         .mini-meter { height: 3px; margin-top: 4px; }
         .popularity-card { min-height: 54px; }
@@ -463,14 +469,14 @@
         .catalog-card .stat-value { font-size: 11px; }
         .catalog-card { grid-column: 1 / -1; }
         .credit-grid { gap: 5px 8px; margin-top: 6px; }
-        .credit-label { margin-bottom: 2px; font-size: 9px; }
-        .credit-value { font-size: 13px; line-height: 1.3; }
+        .credit-label { margin-bottom: 2px; font-size: 10px; }
+        .credit-value { font-size: 14px; line-height: 1.3; }
         .personal-note { display: none; }
         .player-panel { padding: 10px; }
         .track-layout { grid-template-columns: min(18vw, 260px) minmax(0,1fr); gap: 14px; }
       }
       @media (min-width: 960px) and (max-height: 680px) {
-        .genius-result-description { -webkit-line-clamp: 1; }
+        .genius-result-description { font-size: 12px; }
       }
       @media (min-width: 960px) and (min-height: 851px) {
         .stats-panel { padding: 14px; }
@@ -493,6 +499,8 @@
         .app { width: min(840px, calc(100% - 32px)); min-height: 100vh; min-height: 100dvh; padding-top: 22px; }
         .dashboard { flex: 0 0 auto; grid-template-columns: 1fr; grid-template-rows: auto; }
         .stats-panel { height: auto; }
+        .stats-panel > .genius-card { flex: 0 0 auto; overflow: visible; }
+        .stats-panel > .genius-card .genius-result-description { flex: 0 0 auto; overflow: visible; }
         .track-layout { grid-template-columns: minmax(120px, 36%) minmax(0,1fr); gap: 18px; }
         .player-panel, .stats-panel { padding: 18px; }
         .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -521,6 +529,459 @@
         *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
         .artist-marquee-track.is-animated { animation: none !important; }
       }
+      @media (min-width: 960px) {
+        .stats-panel .stat-label { font-size: clamp(10px, .75vw, 14px); }
+        .stats-panel .stat-value { font-size: clamp(19px, 1.3vw, 25px); }
+      }
+    </style>
+    <style>
+      @media (min-width: 960px) {
+        :root {
+          --line: rgba(235, 239, 226, .12);
+          --text: #f5f4ed;
+          --muted: #9b9c91;
+        }
+
+        body {
+          background:
+            radial-gradient(ellipse at 2% 12%, color-mix(in srgb, var(--album-color-1, #283020) 48%, transparent), transparent 38%),
+            radial-gradient(ellipse at 98% 90%, color-mix(in srgb, var(--album-color-2, #151914) 54%, transparent), transparent 42%),
+            #0b0d0c;
+        }
+
+        .app {
+          width: min(1960px, calc(100% - 64px));
+          padding: 18px 0 14px;
+        }
+
+        .app.is-connected {
+          height: 100vh;
+          height: 100dvh;
+          min-height: 0;
+        }
+
+        .topbar {
+          min-height: 56px;
+          padding: 0 2px 14px;
+          border-color: rgba(255,255,255,.1);
+        }
+
+        .brand { gap: 13px; }
+        .brand-mark {
+          width: 40px;
+          height: 40px;
+          border-radius: 13px;
+          box-shadow: 0 0 28px color-mix(in srgb, var(--album-accent, #c5f36a) 14%, transparent);
+        }
+        .brand-name { font-size: 16px; }
+        .topbar-actions { gap: 10px; }
+        .connection-state {
+          min-height: 36px;
+          padding: 0 12px;
+          border: 1px solid var(--line);
+          border-radius: 999px;
+          background: rgba(255,255,255,.035);
+          font-size: 12px;
+        }
+        .icon-button {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: rgba(255,255,255,.035);
+        }
+
+        .dashboard {
+          gap: 16px;
+          margin-top: 16px;
+        }
+        .dashboard.is-connected {
+          grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+        }
+        .panel {
+          border: 1px solid rgba(255,255,255,.1);
+          border-radius: 22px;
+          background:
+            linear-gradient(145deg, color-mix(in srgb, var(--album-color-1, #283020) 25%, rgba(21,24,24,.97)), rgba(13,16,16,.97));
+          box-shadow: 0 24px 70px rgba(0,0,0,.32), inset 0 1px rgba(255,255,255,.035);
+        }
+        .player-panel, .stats-panel { padding: clamp(14px, 1.3vw, 24px); }
+        .player-panel { gap: 0; }
+        .panel-heading {
+          flex: 0 0 auto;
+          margin-bottom: clamp(12px, 1.3vh, 18px);
+        }
+        .section-label {
+          color: #e3e5dc;
+          font-size: 12px;
+          letter-spacing: .9px;
+        }
+        .live-label {
+          padding: 7px 10px;
+          border: 1px solid var(--line);
+          border-radius: 999px;
+          background: rgba(255,255,255,.035);
+        }
+
+        .track-content:not([hidden]) {
+          display: grid;
+          min-height: 0;
+          flex: 1 1 auto;
+          grid-template-rows: minmax(0, 1fr) auto auto;
+          gap: clamp(10px, 1.5vh, 18px);
+        }
+        .track-layout {
+          min-height: 0;
+          grid-template-columns: minmax(220px, .95fr) minmax(0, 1.05fr);
+          align-items: stretch;
+          gap: clamp(20px, 2.4vw, 40px);
+        }
+        .cover-column {
+          min-height: 0;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 12px;
+        }
+        .cover-wrap {
+          width: min(100%, 39dvh);
+          flex: 0 0 auto;
+          border: 1px solid rgba(255,255,255,.14);
+          border-radius: 17px;
+          box-shadow: 0 28px 65px rgba(0,0,0,.48), 0 0 45px color-mix(in srgb, var(--album-accent, #c5f36a) 9%, transparent);
+        }
+        .artist-spotlight {
+          padding: 9px 10px;
+          border-color: rgba(255,255,255,.09);
+          border-radius: 13px;
+          background: rgba(8,10,10,.5);
+        }
+        .artist-spotlight-heading { margin-bottom: 6px; font-size: 9px; }
+        .artist-spotlight-item { width: clamp(165px, 15vw, 215px); }
+        .artist-spotlight-image, .artist-spotlight-initial {
+          width: 40px;
+          height: 40px;
+          flex-basis: 40px;
+        }
+        .track-details {
+          display: flex;
+          min-height: 0;
+          flex-direction: column;
+          justify-content: center;
+          align-self: stretch;
+        }
+        .track-type {
+          margin-bottom: 12px;
+          font-size: 11px;
+          letter-spacing: 1.3px;
+        }
+        .track-title {
+          display: -webkit-box;
+          max-height: 3.2em;
+          font-size: clamp(30px, 3.4vw, 58px);
+          letter-spacing: -2px;
+          line-height: 1.06;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+        }
+        .track-artist { margin-top: 12px; color: #e2e4dc; font-size: clamp(16px, 1.35vw, 22px); }
+        .track-album { margin-top: 5px; font-size: clamp(13px, 1vw, 16px); }
+        .track-meta { gap: 8px; margin-top: 19px; }
+        .meta-chip {
+          padding: 8px 11px;
+          border-color: rgba(255,255,255,.13);
+          border-radius: 999px;
+          font-size: 10px;
+          letter-spacing: .35px;
+        }
+
+        .player-panel .catalog-card {
+          flex: 0 0 auto;
+          margin: 0;
+          padding: 14px 16px;
+          border-color: rgba(255,255,255,.09);
+          border-radius: 15px;
+          background: linear-gradient(110deg, color-mix(in srgb, var(--album-accent, #c5f36a) 8%, rgba(255,255,255,.025)), rgba(255,255,255,.025));
+        }
+        .player-panel .catalog-card .stat-label {
+          color: var(--album-accent, var(--accent));
+          font-size: 10px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+        }
+        .player-panel .catalog-card .credit-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 11px 16px;
+          margin-top: 10px;
+        }
+        .player-panel .catalog-card .credit-label {
+          margin-bottom: 4px;
+          font-size: 10px;
+          letter-spacing: .35px;
+        }
+        .player-panel .catalog-card .credit-value {
+          color: #f0f1eb;
+          font-size: clamp(13px, 1vw, 16px);
+          line-height: 1.35;
+        }
+        .progress-area { margin-top: 0; }
+        .progress-track { height: 5px; background: rgba(255,255,255,.12); }
+        .progress-fill { box-shadow: 0 0 18px color-mix(in srgb, var(--album-accent, #c5f36a) 55%, transparent); }
+        .time-row { margin-top: 7px; font-size: 11px; }
+
+        .stats-panel {
+          display: flex;
+          min-height: 0;
+          flex-direction: column;
+          gap: 0;
+          padding-bottom: clamp(12px, 1.3vw, 22px);
+        }
+        .stats-panel .panel-heading {
+          flex: 0 0 auto;
+          margin-bottom: 11px;
+        }
+        .stats-grid {
+          flex: 0 0 auto;
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+          align-content: start;
+          gap: 7px;
+        }
+        .stat-card {
+          min-height: 65px;
+          padding: 10px 11px;
+          border-color: rgba(255,255,255,.085);
+          border-radius: 13px;
+          background: linear-gradient(145deg, color-mix(in srgb, var(--card-tint, var(--album-accent, #c5f36a)) 10%, rgba(255,255,255,.035)), rgba(255,255,255,.022));
+        }
+        .stat-card::before { right: 14px; left: 14px; opacity: .58; }
+        .stat-label { gap: 5px; color: #c9cdc3; font-size: clamp(10px, .76vw, 13px); }
+        .stat-label svg { width: 13px; height: 13px; }
+        .stat-value {
+          margin-top: 9px;
+          font-size: clamp(18px, 1.45vw, 26px);
+          letter-spacing: -.8px;
+        }
+        .mini-meter { margin-top: 7px; }
+        .popularity-card {
+          min-height: 76px;
+          padding: 11px 14px;
+          border-radius: 14px;
+        }
+        .popularity-card .stat-value { margin-top: 4px; font-size: clamp(26px, 2.1vw, 36px); }
+        .popularity-meter { height: 6px; margin-top: 7px; }
+        .history-card { min-height: 64px; }
+        .tag-card { padding: 11px 13px; }
+        .tag-group-title { margin-bottom: 7px; font-size: 11px; }
+        .genre-tag { padding: 5px 9px; font-size: 11px; }
+        .personal-note { display: none; }
+        .stats-panel > .genius-card {
+          flex: 1 1 0;
+          min-height: 0;
+          margin-top: 11px;
+          padding: clamp(12px, 1.2vw, 20px);
+          border-color: color-mix(in srgb, var(--album-accent, #c5f36a) 23%, rgba(255,255,255,.08));
+          border-radius: 17px;
+          background:
+            radial-gradient(ellipse at 94% 0%, color-mix(in srgb, var(--album-accent, #c5f36a) 15%, transparent), transparent 48%),
+            linear-gradient(145deg, color-mix(in srgb, var(--album-color-1, #283020) 38%, rgba(14,17,17,.96)), rgba(11,14,14,.96));
+        }
+        .stats-panel > .genius-card .stat-label {
+          flex: 0 0 auto;
+          font-size: 11px;
+          letter-spacing: .8px;
+          text-transform: uppercase;
+        }
+        .stats-panel > .genius-card .stat-label span:last-child {
+          padding: 5px 9px;
+          border: 1px solid color-mix(in srgb, var(--album-accent, #c5f36a) 25%, transparent);
+          border-radius: 999px;
+          color: var(--album-accent, var(--accent));
+          background: color-mix(in srgb, var(--album-accent, #c5f36a) 8%, transparent);
+          font: 9px var(--mono);
+        }
+        .genius-result-title {
+          flex: 0 0 auto;
+          margin-top: 9px;
+          font-size: clamp(20px, 2.2vw, 32px);
+          letter-spacing: -1px;
+        }
+        .genius-result-meta { flex: 0 0 auto; margin-top: 4px; font-size: 13px; line-height: 1.4; }
+        .genius-detail-grid {
+          flex: 0 0 auto;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 6px;
+          margin-top: 8px;
+        }
+        .genius-detail { padding: 7px 9px; border-radius: 10px; }
+        .genius-detail.wide { grid-column: auto; }
+        .genius-detail-label { margin-bottom: 4px; font-size: 9px; }
+        .genius-detail-value { font-size: clamp(12px, .88vw, 15px); line-height: 1.3; }
+        .genius-result-description {
+          flex: 1 1 auto;
+          min-height: 48px;
+          margin-top: 8px;
+          color: #d7dad2;
+          font-size: clamp(13px, .95vw, 16px);
+          line-height: 1.55;
+        }
+
+        .footer { margin-top: 10px; font-size: 10px; }
+      }
+
+      @media (min-width: 960px) and (max-height: 800px) {
+        .app { padding-top: 10px; padding-bottom: 8px; }
+        .topbar { min-height: 48px; padding-bottom: 9px; }
+        .dashboard { gap: 10px; margin-top: 10px; }
+        .player-panel, .stats-panel { padding: 10px; }
+        .panel-heading { margin-bottom: 8px; }
+        .track-content:not([hidden]) { gap: 8px; }
+        .track-layout { grid-template-columns: minmax(190px, .85fr) minmax(0, 1.15fr); gap: 16px; }
+        .cover-wrap { width: min(100%, 31dvh); }
+        .artist-spotlight { padding: 7px 8px; }
+        .artist-spotlight-item { width: 170px; padding: 4px 6px; }
+        .artist-spotlight-image, .artist-spotlight-initial { width: 34px; height: 34px; flex-basis: 34px; }
+        .track-title { font-size: clamp(27px, 3vw, 43px); }
+        .track-artist { margin-top: 8px; font-size: clamp(15px, 1.25vw, 18px); }
+        .track-album { font-size: 12px; }
+        .track-meta { margin-top: 12px; }
+        .player-panel .catalog-card { padding: 9px 11px; }
+        .player-panel .catalog-card { height: auto; }
+        .player-panel .catalog-card .credit-grid { gap: 7px 11px; margin-top: 6px; }
+        .player-panel .catalog-card .credit-label { margin-bottom: 2px; font-size: 9px; }
+        .player-panel .catalog-card .credit-value { font-size: 12px; line-height: 1.25; }
+        .stats-panel { gap: 0; }
+        .stats-panel .panel-heading { margin-bottom: 7px; }
+        .stats-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+        .stat-card { height: 56px; min-height: 0; padding: 6px 7px; }
+        .stat-label { font-size: 9px; }
+        .stat-value { margin-top: 5px; font-size: 17px; }
+        .popularity-card { height: 56px; min-height: 0; padding: 7px 9px; }
+        .popularity-card .stat-value { font-size: 25px; }
+        .popularity-meter { height: 4px; margin-top: 5px; }
+        .history-card { height: 56px; min-height: 0; }
+        .tag-card { height: 72px; min-height: 0; grid-column: span 2; padding: 6px 8px; }
+        .tag-group-title { margin-bottom: 3px; font-size: 9px; }
+        .genre-tag { padding: 3px 7px; font-size: 9px; }
+        .stats-panel > .genius-card { margin-top: 7px; padding: 8px; }
+        .genius-result-title { display: -webkit-box; max-height: 2.2em; overflow: hidden; margin-top: 5px; font-size: clamp(18px, 1.9vw, 25px); -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+        .genius-result-meta { overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+        .genius-detail-grid { gap: 3px; margin-top: 4px; }
+        .genius-detail { overflow: hidden; padding: 4px 5px; }
+        .genius-detail-label { overflow: hidden; margin-bottom: 2px; font-size: 7px; letter-spacing: 0; text-overflow: ellipsis; white-space: nowrap; }
+        .genius-detail-value { display: -webkit-box; overflow: hidden; font-size: 9px; line-height: 1.15; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+        .genius-result-description { min-height: 28px; margin-top: 4px; font-size: 11px; line-height: 1.3; }
+        .footer { margin-top: 5px; }
+      }
+
+      @media (min-width: 960px) and (max-width: 1100px) and (max-height: 800px) {
+        .stats-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .stats-panel .tag-card { grid-column: span 2; }
+      }
+    </style>
+    <style>
+      @media (min-width: 960px) {
+        .dashboard-sidebar { min-height: 0; }
+        .stats-panel { position: relative; overflow: hidden; }
+        .stats-panel > .panel-heading { flex: 0 0 auto; }
+        .feature-tile-nav { display: flex; flex: 0 0 auto; gap: 6px; margin: 0 0 10px; }
+        .feature-tile-tab { min-width: 0; padding: 6px 10px; border: 1px solid rgba(255,255,255,.09); border-radius: 999px; color: #abb2a4; background: rgba(255,255,255,.025); cursor: pointer; font: 9px var(--mono); transition: color 150ms ease, background 150ms ease, border-color 150ms ease; }
+        .feature-tile-tab[aria-selected="true"] { border-color: color-mix(in srgb, var(--album-accent, #c5f36a) 50%, transparent); color: var(--album-accent, var(--accent)); background: color-mix(in srgb, var(--album-accent, #c5f36a) 12%, transparent); }
+        .feature-tile-viewport { position: relative; display: flex; min-height: 0; flex: 1 1 auto; flex-direction: column; }
+        .feature-tile[hidden], [data-feature-section][hidden] { display: none !important; }
+        .feature-tile:not([hidden]) { display: flex; min-height: 0; flex: 1 1 0; flex-direction: column; animation: tile-reveal 260ms ease both; }
+        @keyframes tile-reveal { from { opacity: .6; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+        .feature-empty-state { display: grid; min-height: 0; flex: 1; place-content: center; margin: 0; color: #abb2a4; font-size: 13px; text-align: center; }
+        .feature-tile-heading { display: flex; min-height: 34px; flex: 0 0 auto; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+        .feature-tile-title { margin: 0; color: var(--text); font: 700 clamp(17px, 1.4vw, 23px) var(--display); letter-spacing: -.5px; }
+        .feature-tile-subtitle { margin: 3px 0 0; color: #9da597; font-size: 10px; line-height: 1.3; }
+        .feature-tile-note { flex: 0 0 auto; margin: 0 0 8px; color: #899184; font-size: 9px; line-height: 1.35; }
+        .feature-subheading { display: flex; flex: 0 0 auto; align-items: center; gap: 7px; margin: 0 0 6px; color: #dce1d5; font: 700 10px var(--mono); letter-spacing: .45px; text-transform: uppercase; }
+        .deprecated-badge { padding: 3px 5px; border: 1px solid rgba(255,190,115,.22); border-radius: 999px; color: #e8b982; font-size: 7px; letter-spacing: 0; }
+        .tile-status { margin: 5px 0 0; color: #8d9588; font-size: 10px; line-height: 1.35; }
+        .tile-status:empty { display: none; }
+        .tile-pager { display: flex; flex: 0 0 auto; align-items: center; gap: 7px; color: #aeb6a7; font: 9px var(--mono); }
+        .tile-pager-button { display: grid; width: 25px; height: 25px; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--text); background: rgba(255,255,255,.04); cursor: pointer; font-size: 16px; }
+        .tile-pager-button:disabled { opacity: .4; cursor: default; }
+        .album-track-list { display: grid; min-height: 0; flex: 1 1 auto; grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); align-content: start; gap: 5px; margin: 0; padding: 0; list-style: none; }
+        .album-track-row { display: flex; min-width: 0; min-height: 34px; align-items: center; gap: 7px; padding: 5px 7px; border: 1px solid rgba(255,255,255,.055); border-radius: 8px; background: rgba(255,255,255,.018); }
+        .album-track-row.is-current { border-color: color-mix(in srgb, var(--album-accent, #c5f36a) 55%, transparent); background: color-mix(in srgb, var(--album-accent, #c5f36a) 12%, rgba(255,255,255,.02)); box-shadow: inset 3px 0 var(--album-accent, var(--accent)); }
+        .album-track-number { flex: 0 0 19px; color: var(--album-accent, var(--accent)); font: 9px var(--mono); text-align: right; }
+        .album-track-copy { display: block; min-width: 0; }
+        .album-track-name, .album-track-artist { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .album-track-name { color: #eef0e9; font-size: 10px; font-weight: 650; }
+        .album-track-artist { margin-top: 2px; color: #939b8e; font-size: 8px; }
+        .album-track-current-label { flex: 0 0 auto; color: var(--album-accent, var(--accent)); font: 7px var(--mono); }
+        .track-artist-cards { display: grid; min-height: 0; flex: 0 0 auto; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+        .track-artist-card { display: flex; min-width: 0; min-height: 92px; align-items: center; gap: 14px; padding: 12px 14px; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; background: rgba(255,255,255,.025); }
+        .track-artist-image, .track-artist-initial { width: 64px; height: 64px; flex: 0 0 64px; border-radius: 50%; object-fit: cover; background: color-mix(in srgb, var(--album-accent, #c5f36a) 20%, #171a16); }
+        .track-artist-initial { display: grid; place-items: center; color: var(--album-accent, var(--accent)); font: 700 22px var(--display); }
+        .track-artist-copy { min-width: 0; }
+        .track-artist-name { display: block; overflow: hidden; color: #f0f1eb; font-size: clamp(16px, 1.35vw, 21px); font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+        .track-artist-follow { display: block; margin-top: 6px; color: #aab19f; font: 10px var(--mono); }
+        .track-artist-follow.is-followed { color: var(--album-accent, var(--accent)); }
+        .track-artist-name-link { color: inherit; text-decoration: none; }
+        .track-artist-name-link:hover { color: var(--album-accent, var(--accent)); }
+        .artist-genre-area { min-height: 0; flex: 1 1 0; margin-top: 10px; }
+        .artist-genre-area .tag-list { max-height: 160px; overflow: hidden; }
+        .artist-genre-area .genre-tag { padding: 7px 11px; font-size: 12px; }
+        .history-insights-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+        .history-insights-grid .history-card { min-width: 0; }
+        .history-insights-tile > .feature-tile-note { margin-top: auto; }
+        .playlist-details { display: flex; min-height: 0; align-items: flex-start; gap: 16px; padding: 14px; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; background: rgba(255,255,255,.025); }
+        .playlist-image { width: 120px; height: 120px; flex: 0 0 120px; border-radius: 9px; object-fit: cover; background: rgba(255,255,255,.05); }
+        .playlist-copy { min-width: 0; }
+        .playlist-name { color: #f0f1eb; font: 700 clamp(18px, 1.8vw, 26px) var(--display); text-decoration: none; }
+        .playlist-name:hover { color: var(--album-accent, var(--accent)); }
+        .playlist-description { margin: 8px 0 0; color: #aeb6a7; font-size: 12px; line-height: 1.45; overflow-wrap: anywhere; }
+        .playlist-facts { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+        .playlist-facts span { padding: 5px 8px; border: 1px solid rgba(255,255,255,.08); border-radius: 999px; color: #c9cfc3; font: 9px var(--mono); }
+        .genius-insights-tile { gap: 8px; }
+        .genius-insights-tile > .genius-card { display: flex; min-height: 0; flex: 1 1 0; flex-direction: column; margin: 0; overflow: hidden; }
+        .genius-annotations-tile { gap: 8px; }
+        .genius-annotations-tile > .genius-referents-section { display: flex; min-height: 0; flex: 1 1 auto; flex-direction: column; overflow: hidden; padding: 12px 14px; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; background: rgba(255,255,255,.025); }
+        .genius-referents-section .feature-tile-heading { min-height: 0; margin: 0 0 8px; }
+        .genius-referents-section .feature-subheading { margin: 0; font-size: 13px; }
+        .genius-referents-section .feature-tile-subtitle { font-size: 12px; }
+        .genius-referent-list { display: grid; min-height: 0; flex: 1 1 auto; grid-template-columns: minmax(0, 1fr); align-content: start; gap: 10px; overflow-y: auto; scrollbar-width: thin; }
+        .genius-referent-card { min-width: 0; padding: 12px 14px; border: 1px solid rgba(255,255,255,.07); border-radius: 10px; background: rgba(0,0,0,.12); }
+        .genius-referent-fragment { display: block; color: var(--album-accent, var(--accent)); font-size: 15px; font-weight: 700; line-height: 1.4; overflow-wrap: anywhere; }
+        .genius-annotation-text { margin: 8px 0 0; color: #d9ded3; font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; }
+        .genius-annotation-link { display: inline-block; margin-top: 9px; color: var(--album-accent, var(--accent)); font: 10px var(--mono); text-decoration: none; }
+        .genius-annotation-link:hover { text-decoration: underline; }
+        .dashboard-settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; margin: 14px 0; }
+        .setting-toggle { display: flex; min-height: 36px; align-items: center; gap: 8px; padding: 6px 9px; border: 1px solid rgba(255,255,255,.08); border-radius: 8px; color: #c9cfc3; background: rgba(255,255,255,.025); cursor: pointer; font-size: 11px; }
+        .setting-toggle input { width: 14px; height: 14px; flex: 0 0 auto; accent-color: var(--album-accent, var(--accent)); }
+        .settings-section-title { margin: 16px 0 0; color: #eef0e9; font: 700 13px var(--display); }
+        .genius-settings-dialog { width: min(700px, calc(100vw - 32px)); max-width: 700px; max-height: min(90vh, 760px); overflow: auto; }
+        .genius-settings-dialog .genius-settings-copy { margin: 9px 0; }
+        .genius-settings-dialog .genius-settings-note { min-height: 14px; margin-bottom: 7px; }
+        .genius-settings-row { margin-top: 8px; }
+        .album-track-list[data-track-count="1"] { grid-template-columns: minmax(0, 1fr); }
+        .feature-tile-tab:focus-visible, .tile-pager-button:focus-visible, .setting-toggle:focus-within { outline: 2px solid var(--album-accent, var(--accent)); outline-offset: 2px; }
+      }
+
+      @media (min-width: 960px) and (max-height: 800px) {
+        .feature-tile-tab { padding: 5px 8px; font-size: 8px; }
+        .feature-tile-nav { gap: 4px; margin-bottom: 7px; }
+        .feature-tile-title { font-size: 18px; }
+        .feature-tile-heading { min-height: 28px; margin-bottom: 5px; }
+        .feature-tile-note { margin-bottom: 5px; font-size: 8px; }
+        .album-track-list { gap: 4px; }
+        .album-track-row { min-height: 30px; padding: 4px 6px; }
+        .genius-insights-tile { gap: 5px; }
+        .genius-annotations-tile { gap: 5px; }
+        .genius-annotations-tile > .genius-referents-section { padding: 8px 10px; }
+        .genius-referents-section .feature-tile-heading { margin-bottom: 5px; }
+        .genius-referent-list { gap: 6px; }
+        .genius-referent-card { padding: 9px 10px; }
+        .genius-referent-fragment { font-size: 13px; }
+        .genius-annotation-text { margin-top: 5px; font-size: 12px; line-height: 1.45; }
+      }
+
+      @media (min-width: 960px) and (max-width: 1100px) {
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .feature-tile:not([hidden]) { animation: none; }
+      }
     </style>
   </head>
   <body>
@@ -538,7 +999,7 @@
           <div id="connectionState" class="connection-state" role="status" aria-live="polite">
             <span class="state-dot"></span><span id="connectionText">Not connected</span>
           </div>
-          <button id="geniusSettingsButton" class="icon-button" type="button" aria-label="Add or change Genius token" title="Genius settings" aria-haspopup="dialog" aria-controls="geniusSettingsDialog">
+          <button id="geniusSettingsButton" class="icon-button" type="button" aria-label="Dashboard settings" title="Dashboard settings" aria-haspopup="dialog" aria-controls="geniusSettingsDialog">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="1.6"/><path d="m19.4 15 .1.1a1.8 1.8 0 0 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3 .9v.2a1.8 1.8 0 0 1-3.6 0v-.2a1.8 1.8 0 0 0-3-.9l-.1.1a1.8 1.8 0 0 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-.9-3H3.7a1.8 1.8 0 0 1 0-3.6h.2a1.8 1.8 0 0 0 .9-3L4.7 5.3a1.8 1.8 0 0 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3-.9v-.2a1.8 1.8 0 0 1 3.6 0V2a1.8 1.8 0 0 0 3 .9l.1-.1a1.8 1.8 0 0 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 .9 3h.2a1.8 1.8 0 0 1 0 3.6h-.2a1.8 1.8 0 0 0-.9 3Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <button id="disconnectButton" class="icon-button" type="button" aria-label="Disconnect Spotify" title="Disconnect Spotify" hidden>
@@ -581,18 +1042,17 @@
                   <span id="explicitChip" class="meta-chip explicit-chip">EXPLICIT</span>
                   <a id="openSpotify" class="meta-chip" href="#" target="_blank" rel="noreferrer" hidden style="text-decoration:none">OPEN IN SPOTIFY ↗</a>
                 </div>
-                <div class="stat-card genius-card">
-                  <div class="stat-label"><span>Genius song info</span><span id="geniusStatus" class="popularity-unavailable">TOKEN NEEDED</span></div>
-                  <a id="geniusSongLink" class="genius-result-title" href="#" target="_blank" rel="noreferrer" hidden></a>
-                  <p id="geniusResultMeta" class="genius-result-meta">Add the Genius Client Access Token from the setup guide below.</p>
-                  <div id="geniusDetailGrid" class="genius-detail-grid" hidden>
-                    <div id="geniusReleaseDetail" class="genius-detail" hidden><span class="genius-detail-label">Release date</span><strong id="geniusReleaseStat" class="genius-detail-value"></strong></div>
-                    <div id="geniusViewsDetail" class="genius-detail" hidden><span class="genius-detail-label">Genius views</span><strong id="geniusViewsStat" class="genius-detail-value"></strong></div>
-                    <div id="geniusCreditsDetail" class="genius-detail wide" hidden><span class="genius-detail-label">Writers &amp; producers</span><strong id="geniusCreditsStat" class="genius-detail-value"></strong></div>
-                    <div id="geniusAnnotationsDetail" class="genius-detail" hidden><span class="genius-detail-label">Community annotations</span><strong id="geniusAnnotationsStat" class="genius-detail-value"></strong></div>
-                  </div>
-                  <p id="geniusResultDescription" class="genius-result-description" hidden></p>
-                </div>
+              </div>
+            </div>
+            <div class="stat-card catalog-card" data-stat-box="catalog">
+              <div class="stat-label"><span>Credits &amp; catalog</span></div>
+              <div class="credit-grid">
+                <div class="credit-item" data-catalog-field><span id="trackCreditsLabel" class="credit-label">Artists</span><strong id="trackCreditsStat" class="credit-value">—</strong></div>
+                <div class="credit-item" data-catalog-field><span class="credit-label">Album artists</span><strong id="albumArtistsStat" class="credit-value">—</strong></div>
+                <div class="credit-item" data-catalog-field><span class="credit-label">Label</span><strong id="labelStat" class="credit-value">—</strong></div>
+                <div class="credit-item" data-catalog-field><span class="credit-label">Copyright</span><strong id="copyrightStat" class="credit-value">—</strong></div>
+                <div class="credit-item" data-catalog-field><span class="credit-label">ISRC</span><strong id="isrcStat" class="credit-value">—</strong></div>
+                <div class="credit-item" data-catalog-field><span class="credit-label">UPC</span><strong id="upcStat" class="credit-value">—</strong></div>
               </div>
             </div>
             <div class="progress-area">
@@ -624,9 +1084,20 @@
         <div class="dashboard-sidebar">
         <aside class="panel stats-panel" aria-label="Track stats">
           <div class="panel-heading">
-            <h2 class="section-label">Track details</h2>
-            <span class="section-label" style="color:#a6ad9e">SONG &amp; ALBUM</span>
+            <h2 class="section-label">Listening insights</h2>
+            <span class="section-label" style="color:#a6ad9e">AUTO-ROTATING TILES</span>
           </div>
+          <nav id="featureTileNav" class="feature-tile-nav" role="tablist" aria-label="Listening insight tiles">
+            <button type="button" class="feature-tile-tab" role="tab" data-tile-target="overview" aria-controls="overviewTile" aria-selected="true">Overview</button>
+            <button type="button" class="feature-tile-tab" role="tab" data-tile-target="album" aria-controls="albumTile" aria-selected="false" tabindex="-1">Album</button>
+            <button type="button" class="feature-tile-tab" role="tab" data-tile-target="artists" aria-controls="artistsTile" aria-selected="false" tabindex="-1">Artists</button>
+            <button type="button" class="feature-tile-tab" role="tab" data-tile-target="history" aria-controls="historyTile" aria-selected="false" tabindex="-1">History</button>
+            <button type="button" class="feature-tile-tab" role="tab" data-tile-target="playlist" aria-controls="playlistTile" aria-selected="false" tabindex="-1">Playlist</button>
+            <button type="button" class="feature-tile-tab" role="tab" data-tile-target="genius" aria-controls="geniusTile" aria-selected="false" tabindex="-1">Genius</button>
+            <button type="button" class="feature-tile-tab" role="tab" data-tile-target="annotations" aria-controls="geniusAnnotationsTile" aria-selected="false" tabindex="-1">Annotations</button>
+          </nav>
+          <div class="feature-tile-viewport">
+          <section id="overviewTile" class="feature-tile" data-feature-tile="overview" role="tabpanel" aria-label="Track overview">
           <div class="stats-grid">
             <div class="stat-card" data-stat-box="time">
               <div class="stat-label">
@@ -734,34 +1205,92 @@
                 </div>
               </div>
             </div>
-            <div class="stat-card history-card" data-stat-box="last-played">
-              <div class="stat-label"><span>Last played</span></div>
-              <div id="lastPlayedStat" class="stat-value">—</div>
-              <div id="lastPlayedCaption" class="stat-caption">SEARCHING RECENT HISTORY</div>
+            <p id="personalNote" class="personal-note tag-note" style="grid-column:1 / -1;margin:0">Spotify stats appear only when data is available. Add a Genius Client Access Token to show matching song information.</p>
+          </div>
+          </section>
+          <section id="albumTile" class="feature-tile" data-feature-tile="album" role="tabpanel" aria-label="Album track list" hidden>
+            <div class="feature-tile-heading">
+              <div><h3 class="feature-tile-title">Album track list</h3><p id="albumTrackSubtitle" class="feature-tile-subtitle">Loading tracks from this album…</p></div>
+              <div id="albumTrackPager" class="tile-pager" hidden><button id="albumTrackPrevious" class="tile-pager-button" type="button" aria-label="Previous album tracks">‹</button><span id="albumTrackPageLabel"></span><button id="albumTrackNext" class="tile-pager-button" type="button" aria-label="Next album tracks">›</button></div>
             </div>
-            <div class="stat-card history-card" data-stat-box="liked">
-              <div class="stat-label"><span>Liked on</span></div>
-              <div id="likedSinceStat" class="stat-value">—</div>
-              <div id="likedSinceCaption" class="stat-caption">WHEN SAVED TO YOUR LIBRARY</div>
+            <ol id="albumTrackList" class="album-track-list" aria-live="polite"></ol>
+          </section>
+          <section id="artistsTile" class="feature-tile artist-insights-tile" data-feature-tile="artists" role="tabpanel" aria-label="Artists and genres" hidden>
+            <div class="feature-tile-heading"><div><h3 class="feature-tile-title">Artists &amp; genres</h3><p class="feature-tile-subtitle">Spotify artist profiles and genre context</p></div></div>
+            <p class="feature-tile-note">Spotify genres describe an artist’s catalog, not an individual track.</p>
+            <div data-feature-section="artistDetails">
+            <div id="trackArtistCards" class="track-artist-cards" aria-live="polite"></div>
+            <div class="artist-genre-area" hidden><h4 class="feature-subheading">Artist genres</h4><div id="artistGenreList" class="tag-list"></div><p id="artistGenreStatus" class="tile-status">Loading artist genres…</p></div>
             </div>
-            <div class="stat-card history-card" data-stat-box="playlist">
-              <div class="stat-label"><span>Playlist added</span></div>
-              <div id="playlistAddedStat" class="stat-value">—</div>
-              <div id="playlistAddedCaption" class="stat-caption">CURRENT PLAYLIST</div>
-            </div>
-            <div class="stat-card catalog-card" data-stat-box="catalog">
-              <div class="stat-label"><span>Credits &amp; catalog</span></div>
-              <div class="credit-grid">
-                <div class="credit-item" data-catalog-field><span id="trackCreditsLabel" class="credit-label">Artists</span><strong id="trackCreditsStat" class="credit-value">—</strong></div>
-                <div class="credit-item" data-catalog-field><span class="credit-label">Album artists</span><strong id="albumArtistsStat" class="credit-value">—</strong></div>
-                <div class="credit-item" data-catalog-field><span class="credit-label">Label</span><strong id="labelStat" class="credit-value">—</strong></div>
-                <div class="credit-item" data-catalog-field><span class="credit-label">Copyright</span><strong id="copyrightStat" class="credit-value">—</strong></div>
-                <div class="credit-item" data-catalog-field><span class="credit-label">ISRC</span><strong id="isrcStat" class="credit-value">—</strong></div>
-                <div class="credit-item" data-catalog-field><span class="credit-label">UPC</span><strong id="upcStat" class="credit-value">—</strong></div>
+          </section>
+          <section id="historyTile" class="feature-tile history-insights-tile" data-feature-tile="history" role="tabpanel" aria-label="Your listening history" hidden>
+            <div class="feature-tile-heading"><div><h3 class="feature-tile-title">Your listening history</h3><p class="feature-tile-subtitle">Spotify history available for this track</p></div></div>
+            <div class="history-insights-grid">
+              <div class="stat-card history-card" data-history-stat="recent-plays">
+                <div class="stat-label"><span>Recent plays found</span></div>
+                <div id="recentPlayCountStat" class="stat-value">—</div>
+                <div id="recentPlayCountCaption" class="stat-caption">IN THE RECENT HISTORY WINDOW</div>
+              </div>
+              <div class="stat-card history-card" data-history-stat="last-played">
+                <div class="stat-label"><span>Last played</span></div>
+                <div id="lastPlayedStat" class="stat-value">—</div>
+                <div id="lastPlayedCaption" class="stat-caption">SEARCHING RECENT HISTORY</div>
+              </div>
+              <div class="stat-card history-card" data-history-stat="first-played" hidden>
+                <div class="stat-label"><span>Oldest match found</span></div>
+                <div id="firstPlayedStat" class="stat-value">—</div>
+                <div id="firstPlayedCaption" class="stat-caption">IN THE RECENT HISTORY WINDOW</div>
+              </div>
+              <div class="stat-card history-card" data-history-stat="liked">
+                <div class="stat-label"><span>Liked on</span></div>
+                <div id="likedSinceStat" class="stat-value">—</div>
+                <div id="likedSinceCaption" class="stat-caption">WHEN SAVED TO YOUR LIBRARY</div>
+              </div>
+              <div class="stat-card history-card" data-history-stat="playlist">
+                <div class="stat-label"><span>Playlist added</span></div>
+                <div id="playlistAddedStat" class="stat-value">—</div>
+                <div id="playlistAddedCaption" class="stat-caption">CURRENT PLAYLIST</div>
               </div>
             </div>
-            <p id="personalNote" class="personal-note tag-note" style="grid-column:1 / -1;margin:0">Spotify history searches up to 1,000 recent plays and 5,000 saved tracks. Add a Genius Client Access Token to show matching song information.</p>
+            <p id="historyStatus" class="feature-tile-note">Play count reflects matches found in up to 1,000 recent plays, not lifetime listening.</p>
+          </section>
+          <section id="playlistTile" class="feature-tile playlist-context-tile" data-feature-tile="playlist" role="tabpanel" aria-label="Current playlist details" hidden>
+            <div class="feature-tile-heading"><div><h3 class="feature-tile-title">Current playlist</h3><p class="feature-tile-subtitle">More about the Spotify playlist playing this track</p></div></div>
+            <div id="playlistDetails" class="playlist-details" hidden>
+              <img id="playlistImage" class="playlist-image" alt="" hidden />
+              <div class="playlist-copy">
+                <a id="playlistName" class="playlist-name" href="#" target="_blank" rel="noreferrer"></a>
+                <p id="playlistDescription" class="playlist-description" hidden></p>
+                <div class="playlist-facts">
+                  <span id="playlistOwner" hidden></span>
+                  <span id="playlistTrackCount" hidden></span>
+                  <span id="playlistVisibility" hidden></span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="geniusTile" class="feature-tile genius-insights-tile" data-feature-tile="genius" role="tabpanel" aria-label="Genius song information" hidden>
+          <div class="stat-card genius-card" data-feature-section="geniusInfo">
+            <div class="stat-label"><span>Genius song info</span><span id="geniusStatus" class="popularity-unavailable">TOKEN NEEDED</span></div>
+            <a id="geniusSongLink" class="genius-result-title" href="#" target="_blank" rel="noreferrer" hidden></a>
+            <p id="geniusResultMeta" class="genius-result-meta">Add the Genius Client Access Token from the setup guide below.</p>
+            <div id="geniusDetailGrid" class="genius-detail-grid" hidden>
+              <div id="geniusReleaseDetail" class="genius-detail" hidden><span class="genius-detail-label">Release date</span><strong id="geniusReleaseStat" class="genius-detail-value"></strong></div>
+              <div id="geniusViewsDetail" class="genius-detail" hidden><span class="genius-detail-label">Genius views</span><strong id="geniusViewsStat" class="genius-detail-value"></strong></div>
+              <div id="geniusCreditsDetail" class="genius-detail wide" hidden><span class="genius-detail-label">Writers &amp; producers</span><strong id="geniusCreditsStat" class="genius-detail-value"></strong></div>
+              <div id="geniusAnnotationsDetail" class="genius-detail" hidden><span class="genius-detail-label">Community annotations</span><strong id="geniusAnnotationsStat" class="genius-detail-value"></strong></div>
+            </div>
+            <p id="geniusResultDescription" class="genius-result-description" hidden></p>
           </div>
+          </section>
+          <section id="geniusAnnotationsTile" class="feature-tile genius-annotations-tile" data-feature-tile="annotations" role="tabpanel" aria-label="Genius annotations and referents" hidden>
+            <section id="geniusReferentsSection" class="genius-referents-section" data-feature-section="geniusAnnotations">
+              <div class="feature-tile-heading"><div><h3 class="feature-tile-title">Song annotations &amp; referents</h3><p id="geniusReferentStatus" class="feature-tile-subtitle">Community notes anchored to parts of the song</p></div></div>
+              <div id="geniusReferentList" class="genius-referent-list" aria-live="polite"></div>
+            </section>
+          </section>
+          </div>
+          <p id="featureEmptyState" class="feature-empty-state" hidden>No insight tiles have data for this track yet. Play music to load available details, or enable features in Dashboard settings.</p>
         </aside>
 
         </div>
@@ -769,10 +1298,23 @@
 
       <dialog id="geniusSettingsDialog" class="genius-settings-dialog" aria-labelledby="geniusDialogTitle">
         <div class="genius-dialog-header">
-          <h2 id="geniusDialogTitle" class="genius-dialog-title">Connect Genius song info</h2>
+          <h2 id="geniusDialogTitle" class="genius-dialog-title">Dashboard settings</h2>
           <button id="geniusCloseButton" class="secondary-button genius-save-button" type="button">Close</button>
         </div>
-        <p class="genius-settings-copy">Stop any previous server with Ctrl+C, then start the app server with <strong>py server.py</strong> from the Spotify Viewer folder. Open <strong>http://127.0.0.1:8000/</strong>. This server routes Genius API requests through your computer to avoid browser CORS blocks. Open <a href="https://genius.com/api-clients" target="_blank" rel="noreferrer">genius.com/api-clients</a>, create or open an API client, and copy its <strong>Client Access Token</strong>. Paste that value below—not the Client ID, Client Secret, or Spotify token. The token is saved in this browser and sent to the local app server, which forwards it to Genius.</p>
+        <p class="genius-settings-copy">Turn individual dashboard features on or off. Tiles rotate automatically and can also be selected directly in the sidebar.</p>
+        <div class="dashboard-settings-grid">
+          <label class="setting-toggle"><input type="checkbox" data-setting-toggle="overview"><span>Track overview &amp; personal stats</span></label>
+          <label class="setting-toggle"><input type="checkbox" data-setting-toggle="albumTracks"><span>Album track list</span></label>
+          <label class="setting-toggle"><input type="checkbox" data-setting-toggle="artistDetails"><span>Track artists, genres &amp; follow status</span></label>
+          <label class="setting-toggle"><input type="checkbox" data-setting-toggle="historyDetails"><span>Listening history</span></label>
+          <label class="setting-toggle"><input type="checkbox" data-setting-toggle="playlistContext"><span>Current playlist details</span></label>
+          <label class="setting-toggle"><input type="checkbox" data-setting-toggle="geniusInfo"><span>Genius song information</span></label>
+          <label class="setting-toggle"><input type="checkbox" data-setting-toggle="geniusAnnotations"><span>Genius annotations &amp; referents</span></label>
+          <label class="setting-toggle"><input type="checkbox" data-setting-toggle="autoRotate"><span>Automatically rotate tiles</span></label>
+        </div>
+        <p id="settingsStatus" class="genius-settings-note" role="status" aria-live="polite"></p>
+        <h3 class="settings-section-title">Genius connection</h3>
+        <p class="genius-settings-copy">The local server routes Genius API requests through your computer to avoid browser CORS blocks. Open <a href="https://genius.com/api-clients" target="_blank" rel="noreferrer">genius.com/api-clients</a>, create or open an API client, and copy its <strong>Client Access Token</strong>. Paste that value below—not the Client ID, Client Secret, or Spotify token. The token is saved in this browser and sent to the local app server, which forwards it to Genius.</p>
         <p class="genius-settings-note">If Genius returns <strong>403: Action forbidden for current scope</strong>, it is refusing that API client's access. Confirm you copied its Client Access Token; if you did, there is no extra Spotify setting to add, and Genius may not authorize that client.</p>
         <form id="geniusTokenForm" class="genius-settings-row">
           <input id="geniusTokenInput" class="client-input genius-token-input" type="password" autocomplete="off" spellcheck="false" placeholder="Paste Genius Client Access Token" aria-label="Genius Client Access Token" />
@@ -787,7 +1329,7 @@
           Connect your Spotify
         </h2>
         <p class="config-copy">
-          Serve this page at <strong>127.0.0.1:8000</strong> (Spotify does not allow localhost redirect URLs). Create a Spotify app in the Developer Dashboard, paste its Client ID, and add the exact redirect URL below. Song history needs additional Spotify permissions; reconnect and approve them to see play, liked-song, and playlist dates. Your credentials stay in this browser.
+          Serve this page at <strong>127.0.0.1:8000</strong> (Spotify does not allow localhost redirect URLs). Create a Spotify app in the Developer Dashboard, paste its Client ID, and add the exact redirect URL below. Song history and private playlist details require the Spotify permissions requested at sign-in. Spotify may withhold some catalog fields; unavailable data is hidden. Your credentials stay in this browser.
         </p>
         <form id="connectForm">
           <label class="visually-hidden" for="clientId">Spotify Client ID</label>
@@ -819,6 +1361,7 @@
         const CLIENT_ID_KEY = "spotify-viewer-client-id";
         const TOKEN_KEY = "spotify-viewer-token";
         const GENIUS_TOKEN_KEY = "spotify-viewer-genius-token";
+        const SETTINGS_KEY = "spotify-viewer-settings";
         const VERIFIER_KEY = "spotify-viewer-code-verifier";
         const STATE_KEY = "spotify-viewer-oauth-state";
         const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
@@ -830,8 +1373,21 @@
           "user-read-recently-played",
           "user-library-read",
           "playlist-read-private",
-          "playlist-read-collaborative"
+          "playlist-read-collaborative",
+          "user-follow-read"
         ];
+        const DEFAULT_FEATURE_SETTINGS = Object.freeze({
+          overview: true,
+          albumTracks: true,
+          artistDetails: true,
+          historyDetails: true,
+          playlistContext: true,
+          geniusInfo: true,
+          geniusAnnotations: true,
+          autoRotate: true
+        });
+        const FEATURE_TILE_ORDER = ["overview", "album", "artists", "history", "playlist", "genius", "annotations"];
+        const ALBUM_TRACK_PAGE_SIZE = 12;
         const POLL_INTERVAL = 10000;
         const REDIRECT_URI = "http://127.0.0.1:8000/";
 
@@ -852,6 +1408,36 @@
           coverImage: document.getElementById("coverImage"),
           artistSpotlight: document.getElementById("artistSpotlight"),
           artistMarqueeTrack: document.getElementById("artistMarqueeTrack"),
+          featureTileNav: document.getElementById("featureTileNav"),
+          featureTileViewport: document.querySelector(".feature-tile-viewport"),
+          featureTiles: [...document.querySelectorAll("[data-feature-tile]")],
+          featureTileTabs: [...document.querySelectorAll("[data-tile-target]")],
+          featureEmptyState: document.getElementById("featureEmptyState"),
+          albumTrackSubtitle: document.getElementById("albumTrackSubtitle"),
+          albumTrackPager: document.getElementById("albumTrackPager"),
+          albumTrackPrevious: document.getElementById("albumTrackPrevious"),
+          albumTrackNext: document.getElementById("albumTrackNext"),
+          albumTrackPageLabel: document.getElementById("albumTrackPageLabel"),
+          albumTrackList: document.getElementById("albumTrackList"),
+          trackArtistCards: document.getElementById("trackArtistCards"),
+          artistGenreList: document.getElementById("artistGenreList"),
+          artistGenreStatus: document.getElementById("artistGenreStatus"),
+          playlistDetails: document.getElementById("playlistDetails"),
+          playlistImage: document.getElementById("playlistImage"),
+          playlistName: document.getElementById("playlistName"),
+          playlistDescription: document.getElementById("playlistDescription"),
+          playlistOwner: document.getElementById("playlistOwner"),
+          playlistTrackCount: document.getElementById("playlistTrackCount"),
+          playlistVisibility: document.getElementById("playlistVisibility"),
+          historyStatus: document.getElementById("historyStatus"),
+          recentPlayCountStat: document.getElementById("recentPlayCountStat"),
+          recentPlayCountCaption: document.getElementById("recentPlayCountCaption"),
+          firstPlayedStat: document.getElementById("firstPlayedStat"),
+          firstPlayedCaption: document.getElementById("firstPlayedCaption"),
+          geniusReferentStatus: document.getElementById("geniusReferentStatus"),
+          geniusReferentList: document.getElementById("geniusReferentList"),
+          settingsStatus: document.getElementById("settingsStatus"),
+          settingToggles: [...document.querySelectorAll("[data-setting-toggle]")],
           trackType: document.getElementById("trackType"),
           trackTitle: document.getElementById("trackTitle"),
           trackArtist: document.getElementById("trackArtist"),
@@ -937,18 +1523,147 @@
         let activeGeniusKey = "";
         let geniusToken = localStorage.getItem(GENIUS_TOKEN_KEY) || "";
         let geniusTokenVersion = 0;
-        let activeGenreKey = "";
-        const genreCache = new Map();
-        const genreRequests = new Set();
+        let featureSettings = loadFeatureSettings();
+        let activeFeatureTile = "";
+        let currentTrackIdentity = "";
+        let featureTileTimer = null;
+        let albumTrackTimer = null;
+        let featureAutoplayPaused = false;
+        let activeAlbumTrackKey = "";
+        let albumTrackPageIndex = 0;
+        let activeArtistKey = "";
+        let activePlaylistKey = "";
+        let activeGeniusReferentKey = "";
+        let currentGeniusSong = null;
+        const artistInsightCache = new Map();
+        const artistInsightRequests = new Map();
         const songHistoryCache = new Map();
         const songHistoryRequests = new Map();
         const albumDetailsCache = new Map();
         const albumDetailsRequests = new Map();
+        const albumTrackCache = new Map();
+        const albumTrackRequests = new Map();
+        const playlistDetailsCache = new Map();
+        const playlistDetailsRequests = new Map();
         const geniusCache = new Map();
         const geniusRequests = new Set();
+        const geniusReferentCache = new Map();
+        const geniusReferentRequests = new Set();
         let activeSongHistoryKey = "";
         const paletteCanvas = document.createElement("canvas");
         const paletteContext = paletteCanvas.getContext("2d", { willReadFrequently: true });
+
+        function loadFeatureSettings() {
+          try {
+            const stored = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
+            ["upcomingShows", "audioFeatures", "audioAnalysis", "relatedArtists"].forEach((key) => delete stored[key]);
+            return Object.fromEntries(
+              Object.entries(DEFAULT_FEATURE_SETTINGS).map(([key, defaultValue]) => [
+                key,
+                typeof stored[key] === "boolean" ? stored[key] : defaultValue
+              ])
+            );
+          } catch (error) {
+            console.warn("Dashboard settings could not be read; using the defaults.", error);
+            return { ...DEFAULT_FEATURE_SETTINGS };
+          }
+        }
+
+        function tileIsEnabled(tile) {
+          if (tile === "overview") return featureSettings.overview && [...document.querySelectorAll("[data-stat-box]")].some((box) => !box.hidden);
+          if (tile === "album") return featureSettings.albumTracks && elements.albumTrackList.childElementCount > 0;
+          if (tile === "artists") return featureSettings.artistDetails
+            && (elements.trackArtistCards.childElementCount > 0 || elements.artistGenreList.childElementCount > 0);
+          if (tile === "history") return featureSettings.historyDetails
+            && [...document.querySelectorAll("[data-history-stat]")].some((box) => !box.hidden);
+          if (tile === "playlist") return featureSettings.playlistContext && !elements.playlistDetails.hidden;
+          if (tile === "genius") return featureSettings.geniusInfo && Boolean(currentGeniusSong);
+          if (tile === "annotations") return featureSettings.geniusAnnotations && elements.geniusReferentList.childElementCount > 0;
+          return false;
+        }
+
+        function applyFeatureSettings() {
+          elements.settingToggles.forEach((input) => {
+            input.checked = Boolean(featureSettings[input.dataset.settingToggle]);
+          });
+          elements.featureTiles.forEach((tile) => {
+            tile.hidden = !tileIsEnabled(tile.dataset.featureTile);
+          });
+          elements.featureTileTabs.forEach((tab) => {
+            tab.hidden = !tileIsEnabled(tab.dataset.tileTarget);
+          });
+          document.querySelectorAll("[data-feature-section]").forEach((section) => {
+            const setting = section.dataset.featureSection;
+            const hasData = setting === "artistDetails"
+              ? elements.trackArtistCards.childElementCount > 0 || elements.artistGenreList.childElementCount > 0
+              : setting === "geniusInfo"
+                ? Boolean(currentGeniusSong)
+                : setting === "geniusAnnotations" && elements.geniusReferentList.childElementCount > 0;
+            section.hidden = !featureSettings[setting] || !hasData;
+          });
+          elements.featureEmptyState.hidden = FEATURE_TILE_ORDER.some(tileIsEnabled);
+          elements.featureTileNav.hidden = elements.featureEmptyState.hidden === false;
+          if (!activeFeatureTile || !tileIsEnabled(activeFeatureTile)) {
+            activeFeatureTile = FEATURE_TILE_ORDER.find(tileIsEnabled) || "";
+          }
+          if (activeFeatureTile) setActiveFeatureTile(activeFeatureTile, false);
+          else {
+            elements.featureTiles.forEach((tile) => { tile.hidden = true; });
+            stopFeatureTileTimers();
+          }
+          if (!featureSettings.autoRotate) stopFeatureTileTimers();
+          else restartFeatureTileTimer();
+        }
+
+        function stopFeatureTileTimers() {
+          if (featureTileTimer) window.clearInterval(featureTileTimer);
+          if (albumTrackTimer) window.clearInterval(albumTrackTimer);
+          featureTileTimer = null;
+          albumTrackTimer = null;
+        }
+
+        function restartFeatureTileTimer() {
+          if (featureTileTimer) window.clearInterval(featureTileTimer);
+          featureTileTimer = null;
+          if (!featureSettings.autoRotate || !currentPlayback?.item
+            || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+          featureTileTimer = window.setInterval(() => {
+            if (document.hidden || featureAutoplayPaused || elements.geniusSettingsDialog.open) return;
+            const available = FEATURE_TILE_ORDER.filter(tileIsEnabled);
+            if (available.length < 2) return;
+            const currentIndex = available.indexOf(activeFeatureTile);
+            setActiveFeatureTile(available[(currentIndex + 1) % available.length], false);
+          }, 12000);
+        }
+
+        function setActiveFeatureTile(tileName, restartTimer = true) {
+          if (!tileIsEnabled(tileName)) return;
+          activeFeatureTile = tileName;
+          elements.featureTiles.forEach((tile) => {
+            tile.hidden = tile.dataset.featureTile !== tileName;
+          });
+          elements.featureTileTabs.forEach((tab) => {
+            const selected = tab.dataset.tileTarget === tileName;
+            tab.setAttribute("aria-selected", String(selected));
+            tab.tabIndex = selected ? 0 : -1;
+          });
+          updateAlbumTrackTimer();
+          if (restartTimer) restartFeatureTileTimer();
+        }
+
+        function updateAlbumTrackTimer() {
+          if (albumTrackTimer) window.clearInterval(albumTrackTimer);
+          albumTrackTimer = null;
+          if (!featureSettings.autoRotate || activeFeatureTile !== "album"
+            || window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            || (albumTrackCache.get(activeAlbumTrackKey) || []).length <= ALBUM_TRACK_PAGE_SIZE) return;
+          albumTrackTimer = window.setInterval(() => {
+            if (document.hidden || featureAutoplayPaused || elements.geniusSettingsDialog.open) return;
+            const tracks = albumTrackCache.get(activeAlbumTrackKey) || [];
+            const pages = Math.ceil(tracks.length / ALBUM_TRACK_PAGE_SIZE);
+            if (pages > 1) renderAlbumTrackPage((albumTrackPageIndex + 1) % pages);
+          }, 2600);
+        }
 
         function setAlbumPalette(first, second, accent) {
           const root = document.documentElement.style;
@@ -1077,7 +1792,7 @@
 
         function setGenreTags(genres, message) {
           elements.genreTags.replaceChildren();
-          setStatBoxVisible("genres", genres.length > 0);
+          setStatBoxVisible("genres", featureSettings.artistDetails && genres.length > 0);
           if (genres.length) {
             genres.forEach((genre) => {
               const tag = document.createElement("span");
@@ -1094,6 +1809,11 @@
         }
 
         function setArtistSpotlight(artists) {
+          if (!featureSettings.artistDetails) {
+            elements.artistSpotlight.hidden = true;
+            elements.artistMarqueeTrack.replaceChildren();
+            return;
+          }
           const featuredArtists = artists
             .filter((artist) => artist && typeof artist.name === "string" && artist.name.trim())
             .slice(0, 12);
@@ -1153,17 +1873,218 @@
           if (featuredArtists.length > 1) elements.artistMarqueeTrack.append(createArtistSet(true));
         }
 
+        function isCurrentAlbumTrack(track, playbackItem) {
+          return Boolean(playbackItem && (
+            track.id && (track.id === playbackItem.id || track.linked_from?.id === playbackItem.id)
+            || track.track_number === playbackItem.track_number
+              && track.disc_number === playbackItem.disc_number
+              && normalizeGeniusText(track.name) === normalizeGeniusText(playbackItem.name)
+          ));
+        }
+
+        function currentAlbumTrackIndex(tracks, playbackItem) {
+          return tracks.findIndex((track) => isCurrentAlbumTrack(track, playbackItem));
+        }
+
+        function renderAlbumTrackPage(pageIndex) {
+          const tracks = albumTrackCache.get(activeAlbumTrackKey) || [];
+          const pageCount = Math.max(1, Math.ceil(tracks.length / ALBUM_TRACK_PAGE_SIZE));
+          albumTrackPageIndex = Math.max(0, Math.min(pageIndex, pageCount - 1));
+          const pageTracks = tracks.slice(
+            albumTrackPageIndex * ALBUM_TRACK_PAGE_SIZE,
+            (albumTrackPageIndex + 1) * ALBUM_TRACK_PAGE_SIZE
+          );
+          const playbackItem = currentPlayback && currentPlayback.item;
+          elements.albumTrackList.replaceChildren();
+          elements.albumTrackList.dataset.trackCount = String(pageTracks.length);
+          pageTracks.forEach((track) => {
+            const row = document.createElement("li");
+            row.className = "album-track-row";
+            const isCurrent = isCurrentAlbumTrack(track, playbackItem);
+            if (isCurrent) {
+              row.classList.add("is-current");
+              row.setAttribute("aria-current", "true");
+            }
+            const number = document.createElement("span");
+            number.className = "album-track-number";
+            number.textContent = String(track.track_number || 0).padStart(2, "0");
+            const copy = document.createElement("span");
+            copy.className = "album-track-copy";
+            const name = document.createElement("span");
+            name.className = "album-track-name";
+            name.textContent = `${track.name || "Untitled track"}${track.explicit ? " · E" : ""}`;
+            name.title = track.name || "";
+            const artist = document.createElement("span");
+            artist.className = "album-track-artist";
+            artist.textContent = Array.isArray(track.artists)
+              ? track.artists.map((entry) => entry.name).filter(Boolean).join(", ")
+              : "";
+            copy.append(name, artist);
+            row.append(number, copy);
+            if (isCurrent) {
+              const current = document.createElement("span");
+              current.className = "album-track-current-label";
+              current.textContent = "PLAYING";
+              row.append(current);
+            }
+            elements.albumTrackList.append(row);
+          });
+          elements.albumTrackSubtitle.textContent = `${currentPlayback?.item?.album?.name || "Current album"} · ${tracks.length} tracks · playing track highlighted`;
+          elements.albumTrackPager.hidden = pageCount <= 1;
+          elements.albumTrackPageLabel.textContent = `${albumTrackPageIndex + 1} / ${pageCount}`;
+          elements.albumTrackPrevious.disabled = albumTrackPageIndex === 0;
+          elements.albumTrackNext.disabled = albumTrackPageIndex >= pageCount - 1;
+          updateAlbumTrackTimer();
+          applyFeatureSettings();
+        }
+
+        function loadAlbumTracks(item) {
+          const albumId = item && item.album && item.album.id;
+          activeAlbumTrackKey = albumId || "";
+          if (!albumId) {
+            elements.albumTrackSubtitle.textContent = "Spotify did not provide an album ID for this track.";
+            elements.albumTrackList.replaceChildren();
+            elements.albumTrackPager.hidden = true;
+            applyFeatureSettings();
+            return;
+          }
+          if (albumTrackCache.has(albumId)) {
+            const tracks = albumTrackCache.get(albumId);
+            const playingIndex = currentAlbumTrackIndex(tracks, currentPlayback?.item);
+            renderAlbumTrackPage(playingIndex >= 0
+              ? Math.floor(playingIndex / ALBUM_TRACK_PAGE_SIZE)
+              : albumTrackPageIndex);
+            return;
+          }
+          if (albumTrackRequests.has(albumId)) return;
+          elements.albumTrackSubtitle.textContent = "Loading every track from this album…";
+          elements.albumTrackList.replaceChildren();
+          const request = (async () => {
+            const details = albumDetailsCache.get(albumId) || await loadAlbumDetails(item);
+            let page = details && details.tracks;
+            if (!page) {
+              page = await fetchSpotifyJson(
+                `https://api.spotify.com/v1/albums/${encodeURIComponent(albumId)}/tracks?limit=50&market=from_token`
+              );
+            }
+            const tracks = [];
+            while (page) {
+              if (Array.isArray(page.items)) tracks.push(...page.items);
+              if (!page.next) break;
+              page = await fetchSpotifyJson(page.next);
+            }
+            albumTrackCache.set(albumId, tracks);
+            return tracks;
+          })();
+          albumTrackRequests.set(albumId, request);
+          request.then(
+            (tracks) => {
+              albumTrackRequests.delete(albumId);
+              if (activeAlbumTrackKey !== albumId) return;
+              if (!tracks.length) {
+                elements.albumTrackSubtitle.textContent = "Spotify did not return tracks for this album.";
+                applyFeatureSettings();
+                return;
+              }
+              const playingIndex = currentAlbumTrackIndex(tracks, currentPlayback?.item);
+              renderAlbumTrackPage(playingIndex >= 0
+                ? Math.floor(playingIndex / ALBUM_TRACK_PAGE_SIZE)
+                : 0);
+            },
+            (error) => {
+              albumTrackRequests.delete(albumId);
+              if (activeAlbumTrackKey !== albumId) return;
+              elements.albumTrackSubtitle.textContent = error.message || "Could not load this album’s tracks.";
+              applyFeatureSettings();
+              console.error("Could not load the Spotify album track list.", error);
+            }
+          );
+        }
+
+        function makeArtistLink(artist, className) {
+          const link = document.createElement("a");
+          link.className = className;
+          link.textContent = artist.name || "Unknown artist";
+          link.title = artist.name || "";
+          link.href = artist.external_urls?.spotify || `https://open.spotify.com/artist/${encodeURIComponent(artist.id || "")}`;
+          link.target = "_blank";
+          link.rel = "noreferrer";
+          return link;
+        }
+
+        function renderArtistInsightData(trackArtists, data) {
+          const profilesById = new Map((data.artists || []).filter(Boolean).map((artist) => [artist.id, artist]));
+          const followedById = new Map((data.followed || []).map((entry) => [entry.id, entry.followed]));
+          elements.trackArtistCards.replaceChildren();
+          trackArtists.forEach((artist) => {
+            const profile = profilesById.get(artist.id) || artist;
+            const card = document.createElement("article");
+            card.className = "track-artist-card";
+            const image = Array.isArray(profile.images)
+              ? profile.images.find((entry) => entry && entry.url && (entry.width || 0) >= 120) || profile.images.find((entry) => entry && entry.url)
+              : null;
+            if (image) {
+              const photo = document.createElement("img");
+              photo.className = "track-artist-image";
+              photo.src = image.url;
+              photo.alt = "";
+              photo.loading = "lazy";
+              photo.decoding = "async";
+              card.append(photo);
+            } else {
+              const initial = document.createElement("span");
+              initial.className = "track-artist-initial";
+              initial.setAttribute("aria-hidden", "true");
+              initial.textContent = (artist.name || "?").trim().charAt(0).toUpperCase();
+              card.append(initial);
+            }
+            const copy = document.createElement("div");
+            copy.className = "track-artist-copy";
+            const name = makeArtistLink({ ...profile, name: artist.name || profile.name }, "track-artist-name-link track-artist-name");
+            const follow = document.createElement("span");
+            follow.className = "track-artist-follow";
+            const followed = followedById.get(artist.id);
+            if (followed === true) {
+              follow.textContent = "FOLLOWING";
+              follow.classList.add("is-followed");
+            } else if (followed === false) follow.textContent = "NOT FOLLOWED";
+            else follow.textContent = data.followStatus || "FOLLOW STATUS UNAVAILABLE";
+            copy.append(name, follow);
+            card.append(copy);
+            elements.trackArtistCards.append(card);
+          });
+          elements.artistGenreList.replaceChildren();
+          data.genres.forEach((genre) => {
+            const tag = document.createElement("span");
+            tag.className = "genre-tag";
+            tag.textContent = genre;
+            elements.artistGenreList.append(tag);
+          });
+          elements.artistGenreList.closest(".artist-genre-area").hidden = data.genres.length === 0;
+          elements.artistGenreStatus.textContent = data.genres.length ? "" : data.genreMessage;
+          setGenreTags(data.genres, data.genreMessage);
+          setArtistSpotlight(data.artists || []);
+          applyFeatureSettings();
+        }
+
         function setSongHistory(values, note) {
+          elements.recentPlayCountStat.textContent = values.recentPlays.value;
+          elements.recentPlayCountCaption.textContent = values.recentPlays.caption;
+          document.querySelector('[data-history-stat="recent-plays"]').hidden = !values.recentPlays.available;
           elements.lastPlayedStat.textContent = values.lastPlayed.value;
           elements.lastPlayedCaption.textContent = values.lastPlayed.caption;
-          setStatBoxVisible("last-played", hasStatData(values.lastPlayed.value));
+          document.querySelector('[data-history-stat="last-played"]').hidden = !hasStatData(values.lastPlayed.value);
+          elements.firstPlayedStat.textContent = values.firstPlayed.value;
+          elements.firstPlayedCaption.textContent = values.firstPlayed.caption;
+          document.querySelector('[data-history-stat="first-played"]').hidden = !hasStatData(values.firstPlayed.value);
           elements.likedSinceStat.textContent = values.liked.value;
           elements.likedSinceCaption.textContent = values.liked.caption;
-          setStatBoxVisible("liked", hasStatData(values.liked.value));
+          document.querySelector('[data-history-stat="liked"]').hidden = !hasStatData(values.liked.value);
           elements.playlistAddedStat.textContent = values.playlist.value;
           elements.playlistAddedCaption.textContent = values.playlist.caption;
-          setStatBoxVisible("playlist", hasStatData(values.playlist.value));
+          document.querySelector('[data-history-stat="playlist"]').hidden = !hasStatData(values.playlist.value);
           elements.personalNote.textContent = note;
+          applyFeatureSettings();
         }
 
         function updateCatalogVisibility() {
@@ -1213,11 +2134,24 @@
           elements.geniusResultDescription.hidden = !song || !song.description;
           elements.geniusResultDescription.textContent = song ? song.description : "";
           elements.geniusResultDescription.title = song ? song.description : "";
+          if (!song) {
+            currentGeniusSong = null;
+            activeGeniusReferentKey = "";
+            elements.geniusReferentList.replaceChildren();
+            elements.geniusReferentStatus.textContent = status === "TOKEN NEEDED"
+              ? "Add a Genius Client Access Token to load annotations and referents."
+              : status === "SEARCHING"
+                ? "Waiting for a Genius song match before loading referents…"
+                : status === "NO CONFIDENT MATCH"
+                  ? "No exact Genius match was found, so no song referents can be shown."
+                  : `Genius referents unavailable · ${status}`;
+          }
           elements.geniusDetailGrid.hidden = true;
           elements.geniusReleaseDetail.hidden = true;
           elements.geniusViewsDetail.hidden = true;
           elements.geniusCreditsDetail.hidden = true;
           elements.geniusAnnotationsDetail.hidden = true;
+          applyFeatureSettings();
         }
 
         function getGeniusSongArtists(song) {
@@ -1241,7 +2175,7 @@
             ? song.annotation_count
             : null;
           const description = song.description && typeof song.description.plain === "string"
-            ? song.description.plain.trim().slice(0, 360)
+            ? song.description.plain.trim()
             : "";
           const meta = song.primary_artist && song.primary_artist.name || "Song information from Genius.";
           setGeniusStatus("MATCH FOUND", meta, {
@@ -1258,6 +2192,95 @@
           elements.geniusAnnotationsStat.textContent = annotationCount === null ? "" : annotationCount.toLocaleString();
           elements.geniusAnnotationsDetail.hidden = annotationCount === null;
           elements.geniusDetailGrid.hidden = !releaseDate && !pageViews && uniqueCredits.length === 0 && annotationCount === null;
+          currentGeniusSong = song;
+          applyFeatureSettings();
+          activeGeniusReferentKey = String(song.id || "");
+          elements.geniusReferentList.replaceChildren();
+          elements.geniusReferentStatus.textContent = annotationCount
+            ? `Loading community annotations and referents · ${annotationCount.toLocaleString()} annotations`
+            : "Loading public song referents…";
+          if (featureSettings.geniusAnnotations && song.id) loadGeniusReferents(song.id);
+        }
+
+        function renderGeniusReferents(referents, total) {
+          elements.geniusReferentList.replaceChildren();
+          referents.slice(0, 10).forEach((referent) => {
+            const annotation = Array.isArray(referent.annotations) ? referent.annotations[0] : null;
+            const body = annotation?.body?.plain || "";
+            const fragment = typeof referent.fragment === "string" && referent.fragment.trim()
+              ? referent.fragment.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim()
+              : "Song context";
+            if (!body && !fragment) return;
+            const card = document.createElement("article");
+            card.className = "genius-referent-card";
+            const heading = document.createElement("span");
+            heading.className = "genius-referent-fragment";
+            heading.textContent = fragment;
+            heading.title = fragment;
+            card.append(heading);
+            if (body) {
+              const text = document.createElement("p");
+              text.className = "genius-annotation-text";
+              text.textContent = body;
+              text.title = body;
+              card.append(text);
+            }
+            const annotationUrl = annotation && annotation.url;
+            if (annotationUrl) {
+              const link = document.createElement("a");
+              link.className = "genius-annotation-link";
+              link.href = annotationUrl;
+              link.target = "_blank";
+              link.rel = "noreferrer";
+              link.textContent = "Open annotation ↗";
+              card.append(link);
+            }
+            elements.geniusReferentList.append(card);
+          });
+          elements.geniusReferentStatus.textContent = referents.length
+            ? `Showing ${Math.min(referents.length, 10)} of ${total || referents.length} public referents · text is credited to Genius contributors`
+            : "No public annotation referents were returned for this song.";
+          applyFeatureSettings();
+        }
+
+        async function loadGeniusReferents(songId) {
+          const id = String(songId || "");
+          if (!id || !geniusToken || !featureSettings.geniusAnnotations) {
+            elements.geniusReferentStatus.textContent = !geniusToken
+              ? "Add a Genius Client Access Token to load annotations and referents."
+              : "Genius referents are unavailable for this song.";
+            return;
+          }
+          activeGeniusReferentKey = id;
+          if (geniusReferentCache.has(id)) {
+            const cached = geniusReferentCache.get(id);
+            renderGeniusReferents(cached.referents, cached.total);
+            return;
+          }
+          if (geniusReferentRequests.has(id)) return;
+          elements.geniusReferentStatus.textContent = "Loading Genius annotations and referents…";
+          geniusReferentRequests.add(id);
+          try {
+            const response = await fetch(`/genius-api/referents?song_id=${encodeURIComponent(id)}&per_page=10&text_format=plain`, {
+              headers: { Authorization: `Bearer ${geniusToken}` }
+            });
+            if (!response.ok) throw await geniusRequestError(response, "annotation and referent");
+            const result = await response.json();
+            const referentData = result && result.response;
+            const referents = referentData && Array.isArray(referentData.referents)
+              ? referentData.referents.filter(Boolean)
+              : [];
+            const data = { referents, total: referentData && Number.isFinite(referentData.total) ? referentData.total : referents.length };
+            geniusReferentCache.set(id, data);
+            if (activeGeniusReferentKey === id) renderGeniusReferents(data.referents, data.total);
+          } catch (error) {
+            if (activeGeniusReferentKey === id) {
+              elements.geniusReferentStatus.textContent = error.message || "Could not load Genius annotations and referents.";
+            }
+            console.error("Could not load Genius annotations and referents.", error);
+          } finally {
+            geniusReferentRequests.delete(id);
+          }
         }
 
         async function geniusRequestError(response, operation) {
@@ -1377,7 +2400,9 @@
 
         function emptySongHistory(status = "—", caption = "SONG HISTORY") {
           return {
+            recentPlays: { value: status, caption, available: false },
             lastPlayed: { value: status, caption },
+            firstPlayed: { value: status, caption },
             liked: { value: status, caption },
             playlist: { value: status, caption }
           };
@@ -1400,22 +2425,39 @@
             });
           }
           if (!response.ok) {
-            if (response.status === 403) throw new Error("Spotify denied this request. Reconnect and approve the requested permissions.");
-            if (response.status === 429) throw new Error("Spotify rate-limited the history request. Try again in a little while.");
-            throw new Error(`Spotify history lookup failed (${response.status}).`);
+            if (response.status === 403) throw new Error("Spotify denied access to this endpoint (403). Check whether the endpoint is supported for this app and whether its required permissions were approved.");
+            if (response.status === 429) throw new Error("Spotify rate-limited this request. Try again in a little while.");
+            if (response.status === 404) throw new Error("Spotify could not find this resource (404).");
+            throw new Error(`Spotify request failed (${response.status}).`);
           }
           return response.json();
+        }
+
+        function loadSpotifyDetail(id, cache, requests, url) {
+          if (cache.has(id)) return Promise.resolve(cache.get(id));
+          if (requests.has(id)) return requests.get(id);
+          const request = fetchSpotifyJson(url).then((result) => {
+            cache.set(id, result);
+            return result;
+          });
+          requests.set(id, request);
+          request.then(
+            () => requests.delete(id),
+            () => requests.delete(id)
+          );
+          return request;
         }
 
         function loadAlbumDetails(item) {
           const albumId = item.album && item.album.id;
           if (!albumId) {
             renderCatalogDetails(item);
-            return;
+            return Promise.resolve({});
           }
           if (albumDetailsCache.has(albumId)) {
-            renderCatalogDetails(item, albumDetailsCache.get(albumId));
-            return;
+            const details = albumDetailsCache.get(albumId);
+            renderCatalogDetails(item, details);
+            return Promise.resolve(details);
           }
           if (!albumDetailsRequests.has(albumId)) {
             const request = fetchSpotifyJson(`https://api.spotify.com/v1/albums/${encodeURIComponent(albumId)}`)
@@ -1443,6 +2485,99 @@
               console.error("Could not load Spotify album catalog details.", error);
             }
           });
+          return albumDetailsRequests.get(albumId);
+        }
+
+        function renderPlaylistDetails(playlist) {
+          const name = typeof playlist.name === "string" ? playlist.name.trim() : "";
+          elements.playlistDetails.hidden = !name;
+          if (!name) {
+            applyFeatureSettings();
+            return;
+          }
+          elements.playlistName.textContent = name;
+          elements.playlistName.href = playlist.external_urls?.spotify || "#";
+          elements.playlistName.title = name;
+          const description = typeof playlist.description === "string"
+            ? playlist.description.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim()
+            : "";
+          elements.playlistDescription.textContent = description;
+          elements.playlistDescription.hidden = !description;
+          const image = Array.isArray(playlist.images) ? playlist.images.find((entry) => entry?.url) : null;
+          elements.playlistImage.hidden = !image;
+          elements.playlistImage.alt = image ? `Cover art for ${name}` : "";
+          if (image) elements.playlistImage.src = image.url;
+          const owner = playlist.owner?.display_name || playlist.owner?.id || "";
+          elements.playlistOwner.textContent = owner ? `By ${owner}` : "";
+          elements.playlistOwner.hidden = !owner;
+          const totalTracks = playlist.tracks?.total ?? playlist.items?.total;
+          elements.playlistTrackCount.textContent = Number.isInteger(totalTracks)
+            ? `${totalTracks.toLocaleString()} tracks`
+            : "";
+          elements.playlistTrackCount.hidden = !elements.playlistTrackCount.textContent;
+          const visibility = playlist.public === true
+            ? "Public"
+            : playlist.public === false
+              ? "Private"
+              : playlist.collaborative === true ? "Collaborative" : "";
+          elements.playlistVisibility.textContent = visibility;
+          elements.playlistVisibility.hidden = !visibility;
+          applyFeatureSettings();
+        }
+
+        function clearPlaylistDetails() {
+          if (!activePlaylistKey && elements.playlistDetails.hidden) return;
+          activePlaylistKey = "";
+          elements.playlistDetails.hidden = true;
+          elements.playlistImage.removeAttribute("src");
+          elements.playlistName.textContent = "";
+          elements.playlistName.href = "#";
+          elements.playlistDescription.textContent = "";
+          elements.playlistDescription.hidden = true;
+          [elements.playlistOwner, elements.playlistTrackCount, elements.playlistVisibility].forEach((field) => {
+            field.textContent = "";
+            field.hidden = true;
+          });
+          applyFeatureSettings();
+        }
+
+        function loadPlaylistDetails(context) {
+          const playlistId = context?.type === "playlist" && typeof context.uri === "string"
+            ? /^spotify:playlist:([A-Za-z0-9]+)$/.exec(context.uri)?.[1] || ""
+            : "";
+          if (!playlistId || !featureSettings.playlistContext) {
+            clearPlaylistDetails();
+            return;
+          }
+          if (activePlaylistKey === playlistId && !elements.playlistDetails.hidden) return;
+          activePlaylistKey = playlistId;
+          if (playlistDetailsCache.has(playlistId)) {
+            const cached = playlistDetailsCache.get(playlistId);
+            if (cached) renderPlaylistDetails(cached);
+            return;
+          }
+          if (playlistDetailsRequests.has(playlistId)) return;
+          const request = fetchSpotifyJson(`https://api.spotify.com/v1/playlists/${encodeURIComponent(playlistId)}`)
+            .then((playlist) => {
+              playlistDetailsCache.set(playlistId, playlist);
+              return playlist;
+            });
+          playlistDetailsRequests.set(playlistId, request);
+          request.then(
+            (playlist) => {
+              playlistDetailsRequests.delete(playlistId);
+              if (activePlaylistKey === playlistId) renderPlaylistDetails(playlist);
+            },
+            (error) => {
+              playlistDetailsRequests.delete(playlistId);
+              playlistDetailsCache.set(playlistId, null);
+              if (activePlaylistKey === playlistId) {
+                clearPlaylistDetails();
+                showError(`Could not load current playlist details: ${error.message || "Spotify request failed."}`);
+              }
+              console.error("Could not load Spotify playlist details.", error);
+            }
+          );
         }
 
         async function findAddedDate(endpoint, trackId, scanLimit = 1000) {
@@ -1472,19 +2607,28 @@
           const pageSize = 50;
           const scanLimit = 1000;
           let scanned = 0;
+          let playCount = 0;
+          let latestPlayedAt = "";
+          let earliestPlayedAt = "";
           let before = "";
           while (scanned < scanLimit) {
             const params = new URLSearchParams({ limit: String(pageSize) });
             if (before) params.set("before", before);
             const page = await fetchSpotifyJson(`https://api.spotify.com/v1/me/player/recently-played?${params}`);
             const items = Array.isArray(page.items) ? page.items : [];
-            const match = items.find((entry) => entry.track && entry.track.id === trackId);
-            if (match) return { state: "found", playedAt: match.played_at, scanned: scanned + items.length };
-            if (!items.length || !page.cursors || !page.cursors.before) break;
+            items.forEach((entry) => {
+              if (!entry.track || entry.track.id !== trackId) return;
+              playCount += 1;
+              latestPlayedAt ||= entry.played_at || "";
+              earliestPlayedAt = entry.played_at || earliestPlayedAt;
+            });
             scanned += items.length;
+            if (!items.length || !page.cursors || !page.cursors.before || items.length < pageSize) break;
             before = page.cursors.before;
           }
-          return { state: "not-found", scanned };
+          return playCount
+            ? { state: "found", playedAt: latestPlayedAt, earliestPlayedAt, playCount, scanned }
+            : { state: "not-found", scanned };
         }
 
         async function getTrackHistory(trackId, playlistId) {
@@ -1508,10 +2652,23 @@
           const values = emptySongHistory();
           const errors = [];
           if (history.lastPlayed.state === "found") {
+            values.recentPlays = {
+              value: String(history.lastPlayed.playCount),
+              caption: `FOUND IN ${history.lastPlayed.scanned} RECENT PLAYS`,
+              available: true
+            };
             values.lastPlayed = history.lastPlayed.playedAt
-              ? { value: formatHistoryDate(history.lastPlayed.playedAt), caption: `WITHIN ${history.lastPlayed.scanned} RECENT PLAYS` }
+              ? { value: formatHistoryDate(history.lastPlayed.playedAt), caption: "MOST RECENT MATCH IN SPOTIFY HISTORY" }
               : { value: "Date unavailable", caption: "SPOTIFY DATE NOT PROVIDED" };
+            if (history.lastPlayed.earliestPlayedAt) {
+              values.firstPlayed = { value: formatHistoryDate(history.lastPlayed.earliestPlayedAt), caption: "OLDEST MATCH IN THE SCANNED WINDOW" };
+            }
           } else if (history.lastPlayed.state === "not-found") {
+            values.recentPlays = {
+              value: "0",
+              caption: `NO MATCH IN ${history.lastPlayed.scanned} RECENT PLAYS`,
+              available: history.lastPlayed.scanned > 0
+            };
             values.lastPlayed = {
               value: "Not in history",
               caption: `SEARCHED ${history.lastPlayed.scanned} RECENT PLAYS`
@@ -1565,7 +2722,7 @@
             || history.playlist.state === "permission") {
             return "Disconnect with the top-right button, reconnect, and approve the requested Spotify permissions to enable song history.";
           }
-          return "Last-play history searches up to 1,000 plays; liked-song dates search up to 5,000 saved tracks. Spotify does not expose songwriter or producer credits in its Web API.";
+          return "Play count covers only the most recent 1,000 plays Spotify returns for this account; it is not a lifetime count. Liked-song dates search up to 5,000 saved tracks.";
         }
 
         function loadSongHistory(item, context) {
@@ -1611,80 +2768,81 @@
           });
         }
 
-        async function loadArtistGenres(artists) {
-          const artistIds = Array.isArray(artists)
-            ? [...new Set(artists.map((artist) => artist.id).filter((id) => typeof id === "string" && id))]
-            : [];
+        async function loadArtistInsights(trackArtists) {
+          const artists = Array.isArray(trackArtists) ? trackArtists.filter((artist) => artist && artist.name) : [];
+          const artistIds = [...new Set(artists.map((artist) => artist.id).filter((id) => typeof id === "string" && id))];
           const key = artistIds.slice().sort().join(",");
-          activeGenreKey = key;
+          activeArtistKey = key;
           if (!key) {
-            setGenreTags([], "Spotify artist genre tags are unavailable for this track.");
-            setArtistSpotlight([]);
-            return;
-          }
-          if (genreCache.has(key)) {
-            const cached = genreCache.get(key);
-            setGenreTags(cached.genres, cached.message);
-            setArtistSpotlight(cached.artists || []);
-            return;
-          }
-          if (genreRequests.has(key)) return;
-
-          genreRequests.add(key);
-          setGenreTags([], "Loading Spotify artist genre tags…");
-          setArtistSpotlight([]);
-          try {
-            let accessToken = await getAccessToken();
-            let response = await fetch(`https://api.spotify.com/v1/artists?ids=${encodeURIComponent(key)}`, {
-              headers: { Authorization: `Bearer ${accessToken}` }
+            renderArtistInsightData(artists, {
+              artists: [],
+              genres: [],
+              genreMessage: "Spotify artist IDs are unavailable for this track.",
+              followed: [],
+              followStatus: "SPOTIFY ARTIST ID UNAVAILABLE",
             });
-            if (response.status === 401) {
-              await refreshAccessToken();
-              accessToken = await getAccessToken();
-              response = await fetch(`https://api.spotify.com/v1/artists?ids=${encodeURIComponent(key)}`, {
-                headers: { Authorization: `Bearer ${accessToken}` }
-              });
-            }
-            if (!response.ok) {
-              const message = response.status === 403
-                ? "Spotify did not make artist genre tags available to this app."
-                : response.status === 429
-                  ? "Spotify rate-limited the genre lookup. Try again in a little while."
-                  : `Spotify genre lookup failed (${response.status}).`;
-              genreCache.set(key, { genres: [], message });
-              if (activeGenreKey === key) {
-                setGenreTags([], message);
-                setArtistSpotlight([]);
-              }
-              return;
-            }
-
-            const result = await response.json();
-            const artists = (Array.isArray(result.artists) ? result.artists : []).filter(Boolean);
-            const genres = [...new Set(
-              artists
-                .flatMap((artist) => Array.isArray(artist.genres) ? artist.genres : [])
-                .filter((genre) => typeof genre === "string" && genre.trim())
-                .map((genre) => genre.trim())
-            )].slice(0, 12);
-            const message = genres.length
-              ? ""
-              : "Spotify has no artist genre tags for this track.";
-            genreCache.set(key, { genres, message, artists });
-            if (activeGenreKey === key) {
-              setGenreTags(genres, message);
-              setArtistSpotlight(artists);
-            }
-          } catch (error) {
-            const message = error.message || "Could not load Spotify artist genre tags.";
-            genreCache.set(key, { genres: [], message });
-            if (activeGenreKey === key) {
-              setGenreTags([], message);
-              setArtistSpotlight([]);
-            }
-          } finally {
-            genreRequests.delete(key);
+            return;
           }
+          if (artistInsightCache.has(key)) {
+            renderArtistInsightData(artists, artistInsightCache.get(key));
+            return;
+          }
+          if (artistInsightRequests.has(key)) return;
+
+          elements.artistGenreStatus.textContent = "Loading Spotify artist genres…";
+          const settle = (promise) => promise.then(
+            (value) => ({ value }),
+            (error) => ({ error })
+          );
+          const profiles = featureSettings.artistDetails
+            ? settle(fetchSpotifyJson(`https://api.spotify.com/v1/artists?ids=${encodeURIComponent(key)}`))
+            : Promise.resolve({ value: { artists: [] } });
+          const follows = !featureSettings.artistDetails
+            ? Promise.resolve({ value: { entries: [], status: "" } })
+            : !hasScope("user-follow-read")
+              ? Promise.resolve({ value: { entries: [], status: "Reconnect and approve the Followed Artists permission." } })
+              : settle(fetchSpotifyJson(`https://api.spotify.com/v1/me/following/contains?type=artist&ids=${encodeURIComponent(artistIds.join(","))}`))
+                .then((result) => result.error
+                  ? { value: { entries: [], status: result.error.message } }
+                  : { value: { entries: artistIds.map((id, index) => ({ id, followed: result.value[index] === true })), status: "" } });
+          const request = Promise.all([profiles, follows]).then(([profileResult, followResult]) => {
+            const profileArtists = profileResult.value && Array.isArray(profileResult.value.artists)
+              ? profileResult.value.artists.filter(Boolean)
+              : [];
+            const genres = [...new Set(profileArtists.flatMap((artist) => Array.isArray(artist.genres) ? artist.genres : [])
+              .filter((genre) => typeof genre === "string" && genre.trim())
+              .map((genre) => genre.trim()))].slice(0, 16);
+            const data = {
+              artists: profileArtists,
+              genres,
+              genreMessage: profileResult.error
+                ? `Spotify could not load artist profiles: ${profileResult.error.message}`
+                : genres.length ? "" : "Spotify has no genre tags for these artists.",
+              followed: followResult.value.entries,
+              followStatus: followResult.value.status
+            };
+            if (profileResult.error) console.error("Could not load Spotify artist profiles.", profileResult.error);
+            if (followResult.value.status && !followResult.value.status.startsWith("Reconnect")) {
+              console.error("Could not load Spotify followed-artist status.", followResult.value.status);
+            }
+            artistInsightCache.set(key, data);
+            return data;
+          });
+          artistInsightRequests.set(key, request);
+          request.then(
+            (data) => {
+              artistInsightRequests.delete(key);
+              if (activeArtistKey === key) renderArtistInsightData(artists, data);
+            },
+            (error) => {
+              artistInsightRequests.delete(key);
+              if (activeArtistKey === key) {
+                elements.artistGenreStatus.textContent = error.message || "Spotify artist lookup failed.";
+                applyFeatureSettings();
+              }
+              console.error("Could not load Spotify artist insights.", error);
+            }
+          );
         }
 
         elements.redirectUri.textContent = REDIRECT_URI;
@@ -1778,11 +2936,15 @@
         }
 
         function renderPlayback(playback) {
+          const item = playback && playback.item;
+          const nextTrackIdentity = item ? `${item.type || "track"}:${item.id || `${item.name || ""}|${item.album?.id || ""}`}` : "";
+          const trackChanged = nextTrackIdentity !== currentTrackIdentity;
+          currentTrackIdentity = nextTrackIdentity;
           currentPlayback = playback;
           playbackUpdatedAt = Date.now();
           clearError();
 
-          if (!playback || !playback.item) {
+          if (!item) {
             elements.trackContent.hidden = true;
             elements.emptyState.hidden = false;
             elements.emptyTitle.textContent = playback ? "Nothing playing right now" : "Your next track goes here";
@@ -1791,15 +2953,36 @@
               : "Connect your Spotify account below, then press play on any device.";
             elements.liveLabel.classList.remove("active");
             elements.liveText.textContent = playback ? "NO TRACK" : "WAITING";
-            activeGenreKey = "";
+            activeArtistKey = "";
+            activeAlbumTrackKey = "";
+            currentGeniusSong = null;
+            activeGeniusReferentKey = "";
+            elements.geniusReferentList.replaceChildren();
+            elements.geniusReferentStatus.textContent = "Play a track to search Genius annotations and referents.";
+            stopFeatureTileTimers();
             setGenreTags([], "Spotify artist genre tags will appear when available.");
             setAlbumTheme(null);
             resetStats();
             return;
           }
 
-          const item = playback.item;
           const isEpisode = item.type === "episode";
+          if (trackChanged) {
+            activeAlbumTrackKey = item.album?.id || "";
+            albumTrackPageIndex = 0;
+            activeArtistKey = "";
+            currentGeniusSong = null;
+            activeGeniusReferentKey = "";
+            elements.albumTrackList.replaceChildren();
+            elements.albumTrackPager.hidden = true;
+            elements.trackArtistCards.replaceChildren();
+            elements.artistGenreList.replaceChildren();
+            elements.artistGenreList.closest(".artist-genre-area").hidden = true;
+            document.querySelectorAll("[data-history-stat]").forEach((box) => { box.hidden = true; });
+            clearPlaylistDetails();
+            elements.geniusReferentList.replaceChildren();
+            elements.geniusReferentStatus.textContent = "Loading annotations and referents when a Genius match is found…";
+          }
           const artists = Array.isArray(item.artists) ? item.artists.map((artist) => artist.name).filter(Boolean).join(", ") : "";
           const album = item.album || {};
           const releaseDate = album.release_date || item.release_date || "";
@@ -1896,7 +3079,6 @@
           elements.liveLabel.classList.toggle("active", Boolean(playback.is_playing));
           elements.liveText.textContent = playback.is_playing ? "PLAYING" : "PAUSED";
           if (isEpisode) {
-            activeGenreKey = "";
             setGenreTags([], "Spotify artist genre tags are not available for podcast episodes.");
             setArtistSpotlight([]);
             loadSongHistory(null, null);
@@ -1909,17 +3091,36 @@
             elements.upcStat.textContent = "—";
             updateCatalogVisibility();
           } else {
-            loadArtistGenres(item.artists);
-            loadSongHistory(item, playback.context);
+            if (featureSettings.artistDetails) loadArtistInsights(item.artists);
+            if (featureSettings.albumTracks) loadAlbumTracks(item);
+            if (featureSettings.historyDetails) loadSongHistory(item, playback.context);
             loadAlbumDetails(item);
           }
+          loadPlaylistDetails(playback.context);
           lookupGenius(item);
           setAlbumTheme(playback);
           updateProgress();
+          applyFeatureSettings();
+          if (trackChanged && activeFeatureTile) setActiveFeatureTile(activeFeatureTile);
         }
 
         function resetStats() {
           hideStatBoxes();
+          activeAlbumTrackKey = "";
+          activeArtistKey = "";
+          clearPlaylistDetails();
+          activeGeniusReferentKey = "";
+          currentGeniusSong = null;
+          stopFeatureTileTimers();
+          elements.albumTrackSubtitle.textContent = "Play a track to load its album tracks.";
+          elements.albumTrackList.replaceChildren();
+          elements.albumTrackPager.hidden = true;
+          elements.trackArtistCards.replaceChildren();
+          elements.artistGenreList.replaceChildren();
+          elements.artistGenreList.closest(".artist-genre-area").hidden = true;
+          elements.artistGenreStatus.textContent = "Play a track to load artist genres.";
+          elements.geniusReferentList.replaceChildren();
+          elements.geniusReferentStatus.textContent = "Play a track to search Genius annotations and referents.";
           elements.timeDurationStat.textContent = "— / —";
           elements.playedStat.textContent = "—";
           elements.playedFill.style.width = "0%";
@@ -1936,7 +3137,6 @@
           elements.shuffleStat.textContent = "—";
           elements.repeatStat.textContent = "—";
           elements.contextStat.textContent = "—";
-          activeGenreKey = "";
           setGenreTags([], "Spotify artist genre tags will appear when available.");
           setArtistSpotlight([]);
           elements.popularityStat.textContent = "—";
@@ -1948,7 +3148,7 @@
           elements.elapsedTime.textContent = "0:00";
           elements.remainingTime.textContent = "−0:00";
           activeSongHistoryKey = "";
-          setSongHistory(emptySongHistory(), "Spotify history searches up to 1,000 recent plays and 5,000 saved tracks. Add a Genius Client Access Token to show matching song information.");
+          setSongHistory(emptySongHistory(), "Spotify stats appear only when data is available. Add a Genius Client Access Token to show matching song information.");
           elements.trackCreditsStat.textContent = "—";
           elements.trackCreditsLabel.textContent = "Artists";
           elements.albumArtistsStat.textContent = "—";
@@ -2185,6 +3385,68 @@
           fetchPlayback();
         });
 
+        elements.featureTileTabs.forEach((tab) => {
+          tab.addEventListener("click", () => setActiveFeatureTile(tab.dataset.tileTarget));
+          tab.addEventListener("keydown", (event) => {
+            if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+            event.preventDefault();
+            const availableTabs = elements.featureTileTabs.filter((entry) => !entry.hidden);
+            const currentIndex = availableTabs.indexOf(tab);
+            const direction = event.key === "ArrowRight" ? 1 : -1;
+            const nextTab = availableTabs[(currentIndex + direction + availableTabs.length) % availableTabs.length];
+            nextTab.focus();
+            setActiveFeatureTile(nextTab.dataset.tileTarget);
+          });
+        });
+
+        elements.featureTileNav.addEventListener("pointerenter", () => { featureAutoplayPaused = true; });
+        elements.featureTileNav.addEventListener("pointerleave", () => { featureAutoplayPaused = false; });
+        elements.featureTileNav.addEventListener("focusin", () => { featureAutoplayPaused = true; });
+        elements.featureTileNav.addEventListener("focusout", (event) => {
+          if (!elements.featureTileNav.contains(event.relatedTarget)) featureAutoplayPaused = false;
+        });
+        elements.featureTileViewport.addEventListener("pointerenter", () => { featureAutoplayPaused = true; });
+        elements.featureTileViewport.addEventListener("pointerleave", () => { featureAutoplayPaused = false; });
+        elements.featureTileViewport.addEventListener("focusin", () => { featureAutoplayPaused = true; });
+        elements.featureTileViewport.addEventListener("focusout", (event) => {
+          if (!elements.featureTileViewport.contains(event.relatedTarget)) featureAutoplayPaused = false;
+        });
+
+        elements.settingToggles.forEach((input) => {
+          input.addEventListener("change", () => {
+            featureSettings[input.dataset.settingToggle] = input.checked;
+            elements.settingsStatus.textContent = "";
+            try {
+              localStorage.setItem(SETTINGS_KEY, JSON.stringify(featureSettings));
+              elements.settingsStatus.textContent = "Setting saved in this browser.";
+            } catch (error) {
+              elements.settingsStatus.textContent = `Setting applies for this session but could not be saved: ${error.message || "browser storage unavailable"}.`;
+            }
+            applyFeatureSettings();
+            if (currentPlayback?.item && currentPlayback.item.type !== "episode"
+              && input.dataset.settingToggle === "artistDetails" && featureSettings.artistDetails) {
+              loadArtistInsights(currentPlayback.item.artists);
+            }
+            if (currentPlayback?.item && currentPlayback.item.type !== "episode"
+              && input.dataset.settingToggle === "albumTracks" && featureSettings.albumTracks) {
+              loadAlbumTracks(currentPlayback.item);
+            }
+            if (currentPlayback?.item && currentPlayback.item.type !== "episode"
+              && input.dataset.settingToggle === "historyDetails" && featureSettings.historyDetails) {
+              loadSongHistory(currentPlayback.item, currentPlayback.context);
+            }
+            if (input.dataset.settingToggle === "playlistContext" && featureSettings.playlistContext) {
+              loadPlaylistDetails(currentPlayback?.context);
+            }
+            if (input.dataset.settingToggle === "geniusAnnotations" && featureSettings.geniusAnnotations && currentGeniusSong) {
+              loadGeniusReferents(currentGeniusSong.id);
+            }
+          });
+        });
+
+        elements.albumTrackPrevious.addEventListener("click", () => renderAlbumTrackPage(albumTrackPageIndex - 1));
+        elements.albumTrackNext.addEventListener("click", () => renderAlbumTrackPage(albumTrackPageIndex + 1));
+
         elements.geniusSettingsButton.addEventListener("click", () => {
           if (!elements.geniusSettingsDialog.open) elements.geniusSettingsDialog.showModal();
         });
@@ -2240,6 +3502,7 @@
 
         async function initialize() {
           sessionStorage.removeItem("spotify-viewer-listening-session");
+          applyFeatureSettings();
           const callbackHandled = await handleAuthorizationCallback();
           if (callbackHandled && !token) return;
           if (token && token.access_token) {

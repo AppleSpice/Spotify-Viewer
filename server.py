@@ -26,6 +26,8 @@ class ViewerHandler(SimpleHTTPRequestHandler):
     def proxy_genius(self, parsed):
         if parsed.path == "/genius-api/search":
             endpoint = "/search"
+        elif parsed.path == "/genius-api/referents":
+            endpoint = "/referents"
         else:
             song_match = re.fullmatch(r"/genius-api/songs/([0-9]+)", parsed.path)
             if not song_match:
@@ -40,6 +42,22 @@ class ViewerHandler(SimpleHTTPRequestHandler):
                 self.send_error(400, "A Genius search term is required")
                 return
             query_string = urlencode({"q": search_term})
+        elif endpoint == "/referents":
+            song_id = query.get("song_id", [""])[0]
+            if not song_id.isdecimal():
+                self.send_error(400, "A numeric Genius song_id is required")
+                return
+            try:
+                page_size = int(query.get("per_page", ["4"])[0])
+            except ValueError:
+                self.send_error(400, "per_page must be a number")
+                return
+            query_string = urlencode({
+                "song_id": song_id,
+                "per_page": max(1, min(page_size, 10)),
+                "page": 1,
+                "text_format": "plain",
+            })
         else:
             query_string = urlencode({"text_format": "plain"})
 
